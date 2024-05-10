@@ -62,13 +62,17 @@ const Layout = () => {
               </Link>
             </li>
             <li>
-              <a href="javascript:;" className="has-arrow">
+              <Link to="/dashboard">
                 <div className="parent-icon">
-                  <i className="bx bx-user-circle"></i>
+                  <i className="bx bx-home-alt"></i>
                 </div>
-                <div className="menu-title">User Management</div>
-              </a>
-              <ul>
+                <div className="menu-title">
+                  <b>User Management</b>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <ul className="mt-0 pt-0">
                 {user_stauts && user_stauts.role === "admin" && (
                   <>
                     <li>
@@ -121,48 +125,10 @@ const Layout = () => {
                 </ul>
               </div>
               <div className="user-box dropdown px-3">
-                <a
-                  className="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i class="fa-solid fa-circle-user fs-2"></i>
-                </a>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="javascript:;"
-                    >
-                      <i className="bx bx-user fs-5"></i>
-                      <span>Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="javascript:;"
-                    >
-                      <i className="bx bx-cog fs-5"></i>
-                      <span>Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <div className="dropdown-divider mb-0"></div>
-                  </li>
+                <p className="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret">
+                  <i class="fa-solid fa-circle-user fs-2 mt-3"></i>
+                </p>
 
-                  <li>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="javascript:;"
-                    >
-                      <i className="bx bx-log-out-circle"></i>
-                      <Link onClick={handleLogout}>Logout</Link>
-                    </a>
-                  </li>
-                </ul>
                 <button className="btn " onClick={handleLogout}>
                   Logout
                 </button>
@@ -170,16 +136,6 @@ const Layout = () => {
             </nav>
           </div>
         </header>
-
-        {/* <div className="overlay toggle-icon"></div>
-
-        <a href="javaScript:;" className="back-to-top">
-          <i className="bx bxs-up-arrow-alt"></i>
-        </a>
-
-        <footer className="page-footer">
-          <p className="mb-0">Copyright © 2024. All right reserved.</p>
-        </footer> */}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import TeamRegister from "./Pages/Admin/Support_team/Team_Register";
-import Create_User from "./Pages/Admin/User/Create_User";
+import CreateUser from "./Pages/Admin/User/Create_User";
 import AllUsers from "./Pages/Admin/User/All_Users";
 // import AdminLogin from "./Pages/Admin/Login/Login";
 
@@ -48,7 +48,7 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/support_team" element={<TeamRegister />} />
-          <Route path="/create_user" element={<Create_User />} />
+          <Route path="/create_user" element={<CreateUser />} />
           <Route path="/all_users" element={<AllUsers />} />
           {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
         </Route>
