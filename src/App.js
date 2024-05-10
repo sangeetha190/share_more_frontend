@@ -11,9 +11,9 @@ import Header from "./components/Header/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
-import Team_Register from "./Pages/Admin/Support_team/Team_Register";
+import TeamRegister from "./Pages/Admin/Support_team/Team_Register";
 import Create_User from "./Pages/Admin/User/Create_User";
-import All_Users from "./Pages/Admin/User/All_Users";
+import AllUsers from "./Pages/Admin/User/All_Users";
 // import AdminLogin from "./Pages/Admin/Login/Login";
 
 const App = () => {
@@ -47,9 +47,9 @@ const App = () => {
         {/* safe */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/support_team" element={<Team_Register />} />
+          <Route path="/support_team" element={<TeamRegister />} />
           <Route path="/create_user" element={<Create_User />} />
-          <Route path="/all_users" element={<All_Users />} />
+          <Route path="/all_users" element={<AllUsers />} />
           {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
         </Route>
       </Routes>
