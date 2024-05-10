@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
-import BloodtypeIcon from "@mui/icons-material/Bloodtype";
+// import BloodtypeIcon from "@mui/icons-material/Bloodtype";
 import { useSelector } from "react-redux";
 import { getUser, handleLogin, logout } from "../../slices/userSlice";
 import { useDispatch } from "react-redux";
@@ -26,29 +26,17 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="header">
-        <Link to="/">
-          Share More
-          <BloodtypeIcon />{" "}
-        </Link>
-        <div>
-          <Link to={!user && "/login"} className="header__link">
-            <span>Hello{user?.email}</span>
-            <span>{user ? "sign out" : "sign In"}</span>
-          </Link>
-        </div>
-      </nav>
       <div>
         <div className="homepage_banner">
           <div className="box homepage_banner_content">
             <div className="homepage_banner__header">
               <Link to="/mainpage" className="logo">
                 <img
-                  src="https://c.tenor.com/KMqG7xBEaeUAAAAi/cv.gif"
+                  src="https://static.vecteezy.com/system/resources/previews/039/314/387/original/3d-blood-drop-red-blood-drop-with-white-cross-sign-the-concept-of-blood-donation-to-save-the-lives-of-patients-3d-illustration-vector.jpg"
                   alt="logo"
                 />
               </Link>
-              <ul>
+              {/* <ul>
                 <li>
                   <Link to={!user && "/login"}>Login</Link>
                 </li>
@@ -56,17 +44,14 @@ const Header = () => {
                   <Link to="/register">Sign Up</Link>
                 </li>
               </ul>
-              <li onClick={login}>Logout</li>
+              <li onClick={login}>Logout</li> */}
             </div>
             <div className="homepage_banner__contentBox">
-              <h2>Welcome to Our Website</h2>
-              <p>
-                Create your account and modify your profile info. This site
-                built using Reactjs And Nodejs.
-              </p>
+              <h2>Donate Blood Today!</h2>
+              <p>Be Hero and save a Life! Every Drop Will Help!</p>
 
               <Link to="/login" className="btn">
-                Create An Account
+                Get Help Together
               </Link>
             </div>
           </div>
@@ -76,29 +61,37 @@ const Header = () => {
           <div className="box images">
             <div className="homepage_banner__header_images">
               <ul>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-                <li>
-                  <Link to="/register" className="signup_btn">
-                    Sign Up
-                  </Link>
-                </li>
+                {user ? (
+                  <>
+                    <li>
+                      Welcome <span>{user?.name}</span>
+                    </li>
+                    <li>
+                      <Link onClick={login}>Logout</Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link to={!user && "/login"}>Login</Link>
+                    </li>
+                    <li>
+                      <Link to={!user && "/register"} className="signup_btn">
+                        Sign Up
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
 
             <div className="imagecontainerBox">
-              <img
-                src="https://cdn.dribbble.com/users/1568450/screenshots/5430738/work_2_dribbble-01_4x.png"
-                alt="mainpage_img"
-              />
+              <img src="./banner2.png" alt="mainpage_img" />
             </div>
           </div>
           {/* <!-- Image Ends  Here --> */}
           {/* <!-- ============================================================================ --> */}
         </div>
-
-        {/* <Footer /> */}
       </div>
     </>
   );
