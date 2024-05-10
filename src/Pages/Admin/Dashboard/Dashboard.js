@@ -20,7 +20,7 @@ const Dashboard = () => {
           <div className="d-flex justify-content-between flex-column flex-md-row mb-3 mb-md-1">
             <div>
               {/* <!-- Top Welcome Content --> */}
-              <h4 className="font-weight-bold1">Welcome Aamir</h4>
+              <h4 className="font-weight-bold1">Welcome Back</h4>
 
               <p>
                 All systems are running smoothly! You have
@@ -44,12 +44,12 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Total Orders</p>
+                      <p className="mb-0 text-secondary">Total Users</p>
                       <h4 className="my-1 text-info">4805</h4>
-                      <p className="mb-0 font-13">+2.5% from last week</p>
+                      {/* <p className="mb-0 font-13">+2.5% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-blues text-white ms-auto">
-                      <i className="bx bxs-cart"></i>
+                      <i class="fa-solid fa-circle-user fs-2"></i>
                     </div>
                   </div>
                 </div>
@@ -60,12 +60,12 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Total Revenue</p>
-                      <h4 className="my-1 text-danger">$84,245</h4>
-                      <p className="mb-0 font-13">+5.4% from last week</p>
+                      <p className="mb-0 text-secondary">Total Support Team</p>
+                      <h4 className="my-1 text-danger">100+</h4>
+                      {/* <p className="mb-0 font-13">+5.4% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto">
-                      <i className="bx bxs-wallet"></i>
+                      <i class="fa-solid fa-circle-user fs-2"></i>
                     </div>
                   </div>
                 </div>
@@ -76,12 +76,12 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Bounce Rate</p>
-                      <h4 className="my-1 text-success">34.6%</h4>
-                      <p className="mb-0 font-13">-4.5% from last week</p>
+                      <p className="mb-0 text-secondary">Total blood Donor</p>
+                      <h4 className="my-1 text-success">300</h4>
+                      {/* <p className="mb-0 font-13">-4.5% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
-                      <i className="bx bxs-bar-chart-alt-2"></i>
+                      <i class="fa-solid fa-circle-user fs-2"></i>
                     </div>
                   </div>
                 </div>
@@ -92,12 +92,12 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Total Customers</p>
-                      <h4 className="my-1 text-warning">8.4K</h4>
-                      <p className="mb-0 font-13">+8.4% from last week</p>
+                      <p className="mb-0 text-secondary">Total Camps</p>
+                      <h4 className="my-1 text-warning">200</h4>
+                      {/* <p className="mb-0 font-13">+8.4% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto">
-                      <i className="bx bxs-group"></i>
+                      <i class="fa-solid fa-circle-user fs-2"></i>
                     </div>
                   </div>
                 </div>
