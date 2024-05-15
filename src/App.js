@@ -14,7 +14,8 @@ import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import TeamRegister from "./Pages/Admin/Support_team/Team_Register";
 import CreateUser from "./Pages/Admin/User/Create_User";
 import AllUsers from "./Pages/Admin/User/All_Users";
-// import AdminLogin from "./Pages/Admin/Login/Login";
+import AdminLogin from "./Pages/Admin/Login/Login";
+import DonorRegister from "./Pages/User/Donor/Register/DonorRegister";
 
 const App = () => {
   return (
@@ -26,7 +27,7 @@ const App = () => {
             path="/sample"
             element={
               <>
-                <Header />
+                {/* <Header /> */}
                 <Sample />
               </>
             }
@@ -42,16 +43,43 @@ const App = () => {
             </>
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {/* safe */}
+        <Route
+          path="/login"
+          element={
+            <>
+              <Header />
+              <Login />
+            </>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+              <Header />
+              <Register />
+            </>
+          }
+        />
+
+        <Route
+          path="/donor/register"
+          element={
+            <>
+              <Header />
+              <DonorRegister />
+            </>
+          }
+        />
+
+        {/* Admin Side */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/support_team" element={<TeamRegister />} />
           <Route path="/create_user" element={<CreateUser />} />
           <Route path="/all_users" element={<AllUsers />} />
-          {/* <Route path="/admin/login" element={<AdminLogin />} /> */}
         </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
     </Router>
   );

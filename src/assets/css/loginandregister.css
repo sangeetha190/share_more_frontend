@@ -1,0 +1,11 @@
+.login_image {
+  height: 100vh;
+}
+.login_form_box {
+  height: 100vh;
+  padding-top: 60px;
+}
+.loginbox_container {
+  background-color: red;
+  height: 100vh !important;
+}

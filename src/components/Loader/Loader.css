@@ -1,0 +1,6 @@
+.loader_section_container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

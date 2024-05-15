@@ -9,7 +9,6 @@ import "../../assets/css/app.css";
 const Login = () => {
   const user_stauts = useSelector(getUser);
   // const [users, setUsers] = useState([]);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -65,11 +64,11 @@ const Login = () => {
       console.log("user_role:", userRole);
       console.log("user_response.data:", user_response.data);
       // Redirect based on user role
-      if (user_stauts.role === "admin" || user_stauts.role === "support team") {
-        navigate("/dashboard");
-      } else {
-        navigate("/");
-      }
+      // if (user_stauts.role === "admin" || user_stauts.role === "support team") {
+      //   navigate("/dashboard");
+      // } else {
+      navigate("/");
+      // }
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setErrorMessage("Invalid email or password. Please try again.");

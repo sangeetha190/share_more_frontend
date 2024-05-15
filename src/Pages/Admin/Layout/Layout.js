@@ -28,7 +28,7 @@ const Layout = () => {
     dispatch(logout());
 
     // Navigate to the login page
-    navigate("/login");
+    navigate("/admin/login");
   };
   return (
     <div>

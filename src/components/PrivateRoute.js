@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, handleLogin } from "../slices/userSlice";
 import { Navigate, Outlet } from "react-router-dom";
+import Loader from "./Loader/Loader";
 function PrivateRoute() {
   const user = useSelector(getUser);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ function PrivateRoute() {
   });
   // can use loader
   if (loading) {
-    return <h1>Loading......</h1>;
+    return <Loader />;
   }
   if (!user) {
     return <Navigate to="/login" />;

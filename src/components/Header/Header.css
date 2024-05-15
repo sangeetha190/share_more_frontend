@@ -35,9 +35,9 @@
   text-decoration: none;
 }
 .homepage_banner__header .logo img {
-  width: 80px;
+  width: 220px;
   position: relative;
-  top: -20px;
+  top: -4px;
 }
 .homepage_banner__header ul {
   display: flex;
@@ -59,7 +59,7 @@
 .homepage_banner__header ul li a:hover {
   color: #333;
 }
-.homepage_banner__header_images {
+/* .homepage_banner__header_images {
   position: absolute;
   top: 0;
   left: 0;
@@ -69,7 +69,7 @@
   justify-content: flex-end;
   align-items: center;
   z-index: 1;
-}
+} */
 .homepage_banner__header_images ul {
   display: flex;
 }
@@ -80,7 +80,7 @@
 .homepage_banner__header_images ul li a {
   text-decoration: none;
   font-weight: 700;
-  background-color: #0649a1;
+  /* background-color: #0649a1; */
   background-color: #e11732;
   color: #f6f2f2;
   padding: 10px 20px;
@@ -244,5 +244,49 @@
   position: absolute;
   top: 20px;
   z-index: 11;
-  
+}
+/* ============================== */
+/* home_banner_header */
+.home_banner_header {
+}
+.home_banner_header .logo img {
+  width: 210px;
+  position: relative;
+  top: -4px;
+}
+.donate_btn {
+  background-color: #e11732;
+  color: white;
+}
+.header_btn_section button {
+  border: none;
+}
+.header_btn a {
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.signup_btn {
+  transition: 0.5s;
+  background-color: rgb(134 136 138 / 52%);
+  color: #111;
+  background-color: rgb(0 0 0 / 86%);
+  color: #fff !important;
+}
+.signup_btn:hover {
+  transition: 0.5s;
+  background-color: rgb(134 136 138 / 52%);
+  color: #090909 !important;
+}
+.nav-item a {
+  font-size: 17px;
+}
+.dropdown-toggle::after {
+  top: 1px;
+  position: relative;
+}
+li.nav-item {
+  margin-right: 20px;
+}
+.dropdown-menu.profile_drop-down {
+  width: 187px;
 }
