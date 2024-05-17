@@ -16,6 +16,10 @@ import CreateUser from "./Pages/Admin/User/Create_User";
 import AllUsers from "./Pages/Admin/User/All_Users";
 import AdminLogin from "./Pages/Admin/Login/Login";
 import DonorRegister from "./Pages/User/Donor/Register/DonorRegister";
+import LoginEmail from "./Pages/User/Donor/LoginEmail/LoginEmail";
+import LookingForBlood from "./Pages/User/LookingForBlood/LookingForBlood";
+import BDonor from "./Pages/Admin/Donor/Donor";
+import CreateDonor from "./Pages/Admin/Donor/CreateDonor";
 
 const App = () => {
   return (
@@ -29,6 +33,16 @@ const App = () => {
               <>
                 {/* <Header /> */}
                 <Sample />
+              </>
+            }
+          />
+          {/* user Looking for blood */}
+          <Route
+            path="/looking_for_blood"
+            element={
+              <>
+                <Header />
+                <LookingForBlood />
               </>
             }
           />
@@ -71,6 +85,15 @@ const App = () => {
             </>
           }
         />
+        <Route
+          path="/donor/login1"
+          element={
+            <>
+              <Header />
+              <LoginEmail />
+            </>
+          }
+        />
 
         {/* Admin Side */}
         <Route element={<PrivateRoute />}>
@@ -78,6 +101,8 @@ const App = () => {
           <Route path="/support_team" element={<TeamRegister />} />
           <Route path="/create_user" element={<CreateUser />} />
           <Route path="/all_users" element={<AllUsers />} />
+          <Route path="/all_donor" element={<BDonor />} />
+          <Route path="/create_donor" element={<CreateDonor />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>

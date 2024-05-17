@@ -40,3 +40,15 @@ export const handleLogin = (token) => {
     console.log(response);
   };
 };
+
+export const DonorhandleLogin = (token) => {
+  return async (dispatch) => {
+    const response = await axios.get("/donor/get/data", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    dispatch(setUser(response.data));
+    console.log(response);
+  };
+};

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const PAGE_SIZE = 10; // Number of users per page
 
-const All_Users = () => {
+const Donor = () => {
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +14,7 @@ const All_Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/user/all_users");
+        const response = await axios.get("/donor/list");
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -101,7 +101,7 @@ const All_Users = () => {
                       <th scope="col">Name</th>
                       <th scope="col">Email</th>
                       <th scope="col">Phone</th>
-                      <th scope="col">Role</th>
+                      <th scope="col">BloodType</th>
                       <th scope="col"> Action</th>
                     </tr>
                   </thead>
@@ -112,7 +112,7 @@ const All_Users = () => {
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.contactNumber}</td>
-                        <td>{user.role}</td>
+                        <td>{user.bloodType}</td>
                         <td>
                           {userStatus.role === "admin" && (
                             <>
@@ -154,4 +154,4 @@ const All_Users = () => {
   );
 };
 
-export default All_Users;
+export default Donor;
