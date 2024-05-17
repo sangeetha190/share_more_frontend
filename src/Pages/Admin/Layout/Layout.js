@@ -62,6 +62,14 @@ const Layout = () => {
               </Link>
             </li>
             <li>
+              <Link to="/">
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">Go to Website</div>
+              </Link>
+            </li>
+            <li>
               <Link to="/dashboard">
                 <div className="parent-icon">
                   <i className="bx bx-home-alt"></i>
@@ -91,6 +99,36 @@ const Layout = () => {
                 <li>
                   <Link to="/all_users" className="logo">
                     <i className="bx bx-radio-circle"></i>All Users
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            {/* Donor */}
+            <li>
+              <Link>
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <b>Donor Management</b>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <ul className="mt-0 pt-0">
+                {user_stauts && user_stauts.role === "admin" && (
+                  <>
+                    <li>
+                      <Link to="/create_donor" className="logo">
+                        <i className="bx bx-radio-circle"></i>Create Donor
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link to="/all_donor" className="logo">
+                    <i className="bx bx-radio-circle"></i>All Donors
                   </Link>
                 </li>
               </ul>

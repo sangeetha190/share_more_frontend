@@ -54,7 +54,7 @@ const Header = () => {
                   <Link
                     className="nav-link active"
                     aria-current="page"
-                    href="#"
+                    to={"/"}
                   >
                     Home
                   </Link>
@@ -80,7 +80,7 @@ const Header = () => {
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <Link className="dropdown-item" href="#">
+                      <Link className="dropdown-item" to="/looking_for_blood">
                         Looking for blood
                       </Link>
                     </li>
@@ -165,8 +165,19 @@ const Header = () => {
                         Donor Registration
                       </Link>
                     </li>
+                    <li>
+                      <Link to="/donor/login1" className="dropdown-item">
+                        Donor Login
+                      </Link>
+                    </li>
                   </ul>
                 </li>
+                <h3>
+                  {" "}
+                  {user && user.role === "donor" && (
+                    <div class="btn-group">Hai Donor</div>
+                  )}
+                </h3>
               </ul>
 
               <span class="navbar-text">
