@@ -3,19 +3,22 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const PAGE_SIZE = 10; // Number of users per page
 
 const Donor = () => {
+  const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-
+  // const [donors, setDonors] = useState([]);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("/donor/list");
         setUsers(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -40,6 +43,22 @@ const Donor = () => {
     }
   });
 
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this donor?")) {
+      axios
+        .delete(`/donor/delete/${id}`)
+        .then((response) => {
+          console.log(response.data.message);
+          // Filter out the deleted donor from the donors array
+          const updatedDonors = users.filter((donor) => donor._id !== id);
+          // Update the donors state with the updated list
+          setUsers(updatedDonors);
+        })
+        .catch((error) => {
+          console.error("There was an error deleting the donor!", error);
+        });
+    }
+  };
   return (
     <div>
       <Layout />
@@ -120,12 +139,42 @@ const Donor = () => {
                               <button
                                 type="button"
                                 className="btn btn-primary btn-sm mx-2"
+                                onClick={() =>
+                                  navigate(`/edit-donor/${user._id}`)
+                                }
                               >
                                 Edit
                               </button>
+                              {/* <button
+                                type="button"
+                                className="btn btn-danger btn-sm"
+                                onClick={() => {
+                                  if (
+                                    window.confirm(
+                                      "Are you sure you want to delete this donor?"
+                                    )
+                                  ) {
+                                    axios
+                                      .delete(`donor/delete/${user._id}`)
+                                      .then((response) => {
+                                        console.log(response.data.message);
+                                        navigate("/all_donor"); // Navigate back to the list of donors
+                                      })
+                                      .catch((error) => {
+                                        console.error(
+                                          "There was an error deleting the donor!",
+                                          error
+                                        );
+                                      });
+                                  }
+                                }}
+                              >
+                                Delete
+                              </button> */}
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm"
+                                onClick={() => handleDelete(user._id)}
                               >
                                 Delete
                               </button>
@@ -136,6 +185,9 @@ const Donor = () => {
                               <button
                                 type="button"
                                 className="btn btn-primary btn-sm mx-2"
+                                onClick={() =>
+                                  navigate(`/edit-donor/${user._id}`)
+                                }
                               >
                                 Edit
                               </button>

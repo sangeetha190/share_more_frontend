@@ -26,7 +26,11 @@ const Home = () => {
   //   };
   // }, []); // Empty dependency array to run the effect only once after initial render
   return (
-    <>{/* gh */}</>
+    <>
+      <div className="banner_image">
+        <img src="./banner1.jpg" alt="banner_image" className="w-100" />
+      </div>
+    </>
     // <div>
 
     //   <div className="swiper mySwiper">

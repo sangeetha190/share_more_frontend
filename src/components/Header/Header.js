@@ -28,7 +28,7 @@ const Header = () => {
     <>
       <div className="home_banner_header">
         {/* <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light"> */}
-        <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light header-navbar shadow-lg">
           <div className="container-fluid">
             <Link to="/" className="logo">
               <img src="./images/logo5.png" alt="logo" />
@@ -201,7 +201,9 @@ const Header = () => {
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
                         >
-                          D
+                          <span className="text-uppercase">
+                            {user?.name ? user.name[0] : ""}
+                          </span>
                         </button>
                         <ul
                           class="dropdown-menu profile_drop-down"
@@ -209,10 +211,10 @@ const Header = () => {
                         >
                           <li>
                             <Link class="dropdown-item text-wrap">
-                              Hello, <span>{user?.name} Murali Dharan</span>
+                              Hello, <span>{user?.name}</span>
                             </Link>
                           </li>
-                          <hr />
+                          <hr className="m-0" />
                           <li>
                             <Link class="dropdown-item">Profile</Link>
                           </li>

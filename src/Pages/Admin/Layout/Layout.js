@@ -124,6 +124,11 @@ const Layout = () => {
                         <i className="bx bx-radio-circle"></i>Create Donor
                       </Link>
                     </li>
+                    {/* <li>
+                      <Link to="/edit_donor" className="logo">
+                        <i className="bx bx-radio-circle"></i>Edit Donor
+                      </Link>
+                    </li> */}
                   </>
                 )}
                 <li>
@@ -156,7 +161,8 @@ const Layout = () => {
                   {user_stauts && (
                     <li>
                       <span>
-                        Welcome, {user_stauts.name} {user_stauts.role}
+                        Welcome, {user_stauts.name} <br />
+                        {user_stauts.role}
                       </span>
                     </li>
                   )}
