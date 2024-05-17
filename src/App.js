@@ -20,6 +20,7 @@ import LoginEmail from "./Pages/User/Donor/LoginEmail/LoginEmail";
 import LookingForBlood from "./Pages/User/LookingForBlood/LookingForBlood";
 import BDonor from "./Pages/Admin/Donor/Donor";
 import CreateDonor from "./Pages/Admin/Donor/CreateDonor";
+import EditDonor from "./Pages/Admin/Donor/EditDonor";
 
 const App = () => {
   return (
@@ -103,6 +104,8 @@ const App = () => {
           <Route path="/all_users" element={<AllUsers />} />
           <Route path="/all_donor" element={<BDonor />} />
           <Route path="/create_donor" element={<CreateDonor />} />
+          {/* <Route path="/edit_donor" element={<EditDonor />} /> */}
+          <Route path="/edit-donor/:id" element={<EditDonor />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>

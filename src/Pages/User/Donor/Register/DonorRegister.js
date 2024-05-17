@@ -98,7 +98,7 @@ const DonorRegister = () => {
         <div className="container-fluid">
           <div className="row no-gutter">
             {/* <!-- The image half --> */}
-            <div className="col-md-4 d-none d-md-flex login_image p-0">
+            <div className="col-md-4 d-none d-md-flex login_image p-0 pt-5 mt-3">
               <img src="../images/donars.jpg" alt="test" width="100%" />
             </div>
 

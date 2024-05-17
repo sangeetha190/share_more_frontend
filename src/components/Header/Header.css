@@ -5,6 +5,16 @@
   box-sizing: border-box;
   /* font-family: "Poppins", sans-serif; */
 }
+.banner_image {
+  height: 100vh;
+}
+.banner_image img{
+  width: 100%;
+  height: 100%;
+}
+.header-navbar {
+  background-color: #fff !important;
+}
 .homepage_banner {
   background-color: #fefefe;
   display: grid;
