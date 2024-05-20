@@ -176,34 +176,22 @@ const Home = () => {
                 </h6>
                 <ul className="list-unstyled footer-link mt-4">
                   <li>
-                    <a
-                      href=" className="
-                      className="text-white text-decoration-none fw-semibold"
-                    >
+                    <a className="text-white text-decoration-none fw-semibold">
                       Events
                     </a>
                   </li>
                   <li>
-                    <a
-                      href=" className="
-                      className="text-white text-decoration-none fw-semibold"
-                    >
+                    <a className="text-white text-decoration-none fw-semibold">
                       Our Team
                     </a>
                   </li>
                   <li>
-                    <a
-                      href=" className="
-                      className="text-white text-decoration-none fw-semibold"
-                    >
+                    <a className="text-white text-decoration-none fw-semibold">
                       Upcoming Sale
                     </a>
                   </li>
                   <li>
-                    <a
-                      href=" className="
-                      className="text-white text-decoration-none fw-semibold"
-                    >
+                    <a className="text-white text-decoration-none fw-semibold">
                       New Launches
                     </a>
                   </li>
@@ -218,7 +206,7 @@ const Home = () => {
                 <ul className="list-unstyled footer-link mt-4">
                   <li className="mb-1">
                     <a
-                      href=" className="
+                      href="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       API
@@ -226,7 +214,7 @@ const Home = () => {
                   </li>
                   <li className="mb-1">
                     <a
-                      href=" className="
+                      href="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       Website Tutorials
@@ -234,7 +222,7 @@ const Home = () => {
                   </li>
                   <li className="mb-1">
                     <a
-                      href=" className="
+                      href="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       Third Party
@@ -242,7 +230,7 @@ const Home = () => {
                   </li>
                   <li className="">
                     <a
-                      href=" className="
+                      href="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       Video Lectures
@@ -262,19 +250,19 @@ const Home = () => {
                   , Phase 8B , 160055
                 </address>
                 <a
-                  href="tel:+"
+                  href="tel:+909090XXXX"
                   className="text-white mb-1 text-decoration-none d-block fw-semibold"
                 >
                   <i className="bi bi-telephone"></i> 909090XXXX
                 </a>
                 <a
-                  href="mailto:"
+                  href="mailto:xyzdemomail@gmail.com"
                   className="text-white mb-1 text-decoration-none d-block fw-semibold"
                 >
                   <i className="bi bi-envelope"></i> xyzdemomail@gmail.com
                 </a>
                 <a
-                  href=""
+                  href="skype:xyzdemomail"
                   className="text-white text-decoration-none fw-semibold"
                 >
                   <i className="bi bi-skype"></i> xyzdemomail
