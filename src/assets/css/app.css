@@ -9,6 +9,34 @@ Email: codervent@gmail.com
 File: app.css
 
 */
+.Toastify__toast-container {
+  width: 450px !important;
+}
+.Toastify__progress-bar-theme--light {
+  /* background: var(--toastify-color-progress-light); */
+  background: #17af17 !important;
+}
+.red_bg {
+  background-color: #e21632;
+}
+.profile-card__img {
+  width: 80px;
+  height: 80px;
+  /* margin-left: auto; */
+  margin-right: auto;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 4;
+  /* box-shadow: 0px 5px 50px 0px #565558, 0px 0px 0px 7px rgba(72, 71, 74, 0.5); */
+  background: white;
+  left: 20px;
+}
+.LF_blood_container {
+  position: relative;
+  margin-top: 30px;
+}
 .page-link:focus {
   z-index: 3;
   color: #0a58ca;

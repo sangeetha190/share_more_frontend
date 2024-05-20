@@ -84,18 +84,21 @@ const Header = () => {
                         Looking for blood
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link className="dropdown-item" href="#">
                         Appointment Booking
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
-                      <Link className="dropdown-item" href="#">
+                      <Link
+                        className="dropdown-item"
+                        to="/page_under_maintance"
+                      >
                         Types of Bloods
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="#">
+                      <Link className="dropdown-item" to="/all_camp_schedule">
                         Camp schedules
                       </Link>
                     </li>
@@ -117,7 +120,10 @@ const Header = () => {
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <Link className="dropdown-item" href="#">
+                      <Link
+                        className="dropdown-item"
+                        to="/page_under_maintance"
+                      >
                         Share a Day
                       </Link>
                     </li>
@@ -139,7 +145,10 @@ const Header = () => {
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <Link className="dropdown-item" href="#">
+                      <Link
+                        className="dropdown-item"
+                        to="/page_under_maintance"
+                      >
                         Share a Day
                       </Link>
                     </li>
@@ -168,6 +177,11 @@ const Header = () => {
                     <li>
                       <Link to="/donor/login1" className="dropdown-item">
                         Donor Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/donor/appointment" className="dropdown-item">
+                        Appointment Booking
                       </Link>
                     </li>
                   </ul>

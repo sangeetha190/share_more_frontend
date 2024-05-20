@@ -1,6 +1,4 @@
 import React from "react";
-// import "antd/dist/antd.less"; // or 'antd/dist/antd.less'
-// import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import "./assets/css/app.css";
 // import "./assets/js/own.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -21,6 +19,13 @@ import LookingForBlood from "./Pages/User/LookingForBlood/LookingForBlood";
 import BDonor from "./Pages/Admin/Donor/Donor";
 import CreateDonor from "./Pages/Admin/Donor/CreateDonor";
 import EditDonor from "./Pages/Admin/Donor/EditDonor";
+import DonorAppointment from "./Pages/User/Donor/Appointment/DonorAppointment";
+import AppoinmentList from "./Pages/Admin/Appoinment/AppoinmentList";
+import CampScheduleCreate from "./Pages/Admin/CampSchedule/CampScheduleCreate";
+import CampList from "./Pages/Admin/CampSchedule/CampList";
+import EditCampSchedule from "./Pages/Admin/CampSchedule/EditCampSchedule";
+import CampSceduleDataList from "./Pages/User/CampScheduleData_list/CampSceduleData_list";
+import PageUnderMaintance from "./components/PageUnderMaintance/PageUnderMaintance";
 
 const App = () => {
   return (
@@ -95,7 +100,33 @@ const App = () => {
             </>
           }
         />
-
+        <Route
+          path="/donor/appointment"
+          element={
+            <>
+              <Header />
+              <DonorAppointment />
+            </>
+          }
+        />
+        <Route
+          path="/all_camp_schedule"
+          element={
+            <>
+              <Header />
+              <CampSceduleDataList />
+            </>
+          }
+        />
+        <Route
+          path="/page_under_maintance"
+          element={
+            <>
+              <Header />
+              <PageUnderMaintance />
+            </>
+          }
+        />
         {/* Admin Side */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -104,8 +135,19 @@ const App = () => {
           <Route path="/all_users" element={<AllUsers />} />
           <Route path="/all_donor" element={<BDonor />} />
           <Route path="/create_donor" element={<CreateDonor />} />
+
           {/* <Route path="/edit_donor" element={<EditDonor />} /> */}
           <Route path="/edit-donor/:id" element={<EditDonor />} />
+          <Route path="/appoinment_List" element={<AppoinmentList />} />
+
+          {/* Camp Schedule */}
+          <Route
+            path="/camp_schedule_create"
+            element={<CampScheduleCreate />}
+          />
+
+          <Route path="/camp_schedule_list" element={<CampList />} />
+          <Route path="/camp_schedule/:id" element={<EditCampSchedule />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
