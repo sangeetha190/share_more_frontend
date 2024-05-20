@@ -177,24 +177,36 @@ const Home = () => {
                 </h6>
                 <ul className="list-unstyled footer-link mt-4">
                   <li>
-                    <a className="text-white text-decoration-none fw-semibold">
+                    <Link
+                      to="/"
+                      className="text-white text-decoration-none fw-semibold"
+                    >
                       Events
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="text-white text-decoration-none fw-semibold">
+                    <Link
+                      to="/"
+                      className="text-white text-decoration-none fw-semibold"
+                    >
                       Our Team
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="text-white text-decoration-none fw-semibold">
+                    <Link
+                      to="/"
+                      className="text-white text-decoration-none fw-semibold"
+                    >
                       Upcoming Sale
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="text-white text-decoration-none fw-semibold">
+                    <Link
+                      to="/"
+                      className="text-white text-decoration-none fw-semibold"
+                    >
                       New Launches
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
