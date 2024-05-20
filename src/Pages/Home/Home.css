@@ -107,7 +107,7 @@ footer {
   line-height: 1.8;
 }
 
-input[type="email"] {
+.Home_email_container input[type="email"] {
   display: inline-block;
   width: 60%;
   padding: 18px 36px;
@@ -120,8 +120,8 @@ input[type="email"] {
   border: none;
   box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.06);
 }
-input,
-input::-webkit-input-placeholder {
+.Home_email_container input,
+.Home_email_container input::-webkit-input-placeholder {
   font-size: 16px;
   line-height: 3;
 }
