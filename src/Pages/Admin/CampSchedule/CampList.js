@@ -3,20 +3,48 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Notify from "../../../components/Notify/Notify";
 const PAGE_SIZE = 10; // Number of users per page
 
-const Donor = () => {
+const CampList = () => {
   const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   // const [donors, setDonors] = useState([]);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.message && location.state.imgUrl) {
+      // toast(
+      //   <Notify
+      //     message={location.state.message}
+      //     imgUrl={location.state.imgUrl}
+      //   />,{}
+      // );
+      toast(
+        <Notify
+          message={location.state.message}
+          imgUrl={location.state.imgUrl}
+        />,
+        {
+          position: location.state.position || "bottom-right", // Default to "top-right" if not provided
+          progressClassName: {
+            backgroundColor: location.state.progressColor || "#fbbd08", // Default to yellow if not provided
+          },
+        }
+      );
+    }
+  }, [location]);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/donor/list");
+        const response = await axios.get("/camp_schedule/list");
         setUsers(response.data);
         // console.log(response.data);
       } catch (error) {
@@ -66,7 +94,7 @@ const Donor = () => {
           <div className="card">
             <div className="card-body">
               <div className="d-flex justify-content-between  ">
-                <h5 class="mb-4 px-2">All Users List</h5>
+                <h5 class="mb-4 px-2">All Camp Schedule List</h5>
                 {/* pagination */}
                 {/* Pagination starts */}
                 <nav aria-label="Page navigation">
@@ -117,21 +145,46 @@ const Donor = () => {
                   <thead className="thead-dark blue_bg text-white">
                     <tr>
                       <th scope="col">Id</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Phone</th>
-                      <th scope="col">BloodType</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">End Date</th>
+                      <th scope="col">Organizer</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Approx_Donor</th>
                       <th scope="col"> Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {currentUsers.map((user, index) => (
+                    {currentUsers.map((camp_details, index) => (
                       <tr key={index}>
                         <th scope="row">{indexOfFirstUser + index + 1}</th>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.contactNumber}</td>
-                        <td>{user.bloodType}</td>
+                        <td>
+                          {new Date(camp_details.start_date).toLocaleDateString(
+                            undefined,
+                            {
+                              weekday: "long", // to get the full name of the day
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
+                        </td>
+                        <td>
+                          {new Date(camp_details.end_date).toLocaleDateString(
+                            undefined,
+                            {
+                              weekday: "long", // to get the full name of the day
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
+                        </td>
+                        {/* <td>{user.end_date}</td> */}
+                        <td>{camp_details.organizer}</td>
+                        <td>{camp_details.address}</td>
+                        <td>{camp_details.time}</td>
+                        <td>{camp_details.approx_donor}</td>
                         <td>
                           {userStatus.role === "admin" && (
                             <>
@@ -139,12 +192,11 @@ const Donor = () => {
                                 type="button"
                                 className="btn btn-primary btn-sm mx-2"
                                 onClick={() =>
-                                  navigate(`/edit-donor/${user._id}`)
+                                  navigate(`/camp_schedule/${camp_details._id}`)
                                 }
                               >
                                 Edit
                               </button>
-                              {/* EditCampSchedule */}
                               {/* <button
                                 type="button"
                                 className="btn btn-danger btn-sm"
@@ -174,7 +226,7 @@ const Donor = () => {
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm"
-                                onClick={() => handleDelete(user._id)}
+                                onClick={() => handleDelete(camp_details._id)}
                               >
                                 Delete
                               </button>
@@ -186,7 +238,7 @@ const Donor = () => {
                                 type="button"
                                 className="btn btn-primary btn-sm mx-2"
                                 onClick={() =>
-                                  navigate(`/edit-donor/${user._id}`)
+                                  navigate(`/camp_schedule/${camp_details._id}`)
                                 }
                               >
                                 Edit
@@ -203,8 +255,9 @@ const Donor = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
 
-export default Donor;
+export default CampList;

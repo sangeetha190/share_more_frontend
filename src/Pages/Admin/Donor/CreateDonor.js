@@ -3,13 +3,13 @@ import "../../../assets/css/loginandregister.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "../../../axios";
-import { handleLogin } from "../../../slices/userSlice";
+// import { handleLogin } from "../../../slices/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Layout from "../Layout/Layout";
 const CreateDonor = () => {
   // const user_stauts = useSelector(getUser);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),

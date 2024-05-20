@@ -136,6 +136,43 @@ const Layout = () => {
                     <i className="bx bx-radio-circle"></i>All Donors
                   </Link>
                 </li>
+                {/* Appointment */}
+                <li>
+                  <Link to="/appoinment_List" className="logo">
+                    <i className="bx bx-radio-circle"></i>Appointment List
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            {/* Camp Schedule  */}
+            <li>
+              <Link>
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <b>Camp Schedule </b>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <ul className="mt-0 pt-0">
+                {user_stauts && user_stauts.role === "admin" && (
+                  <>
+                    <li>
+                      <Link to="/camp_schedule_create" className="logo">
+                        <i className="bx bx-radio-circle"></i>Create Camp
+                        Schedule
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link to="/camp_schedule_list" className="logo">
+                    <i className="bx bx-radio-circle"></i>All Camp_Schedule List
+                  </Link>
+                </li>
               </ul>
             </li>
           </ul>

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const PAGE_SIZE = 10; // Number of users per page
 
-const Donor = () => {
+const AppoinmentList = () => {
   const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
@@ -16,9 +16,11 @@ const Donor = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/donor/list");
+        const response = await axios.get(
+          "/blood_donor_appointment/all_appoinment_list"
+        );
         setUsers(response.data);
-        // console.log(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -66,7 +68,7 @@ const Donor = () => {
           <div className="card">
             <div className="card-body">
               <div className="d-flex justify-content-between  ">
-                <h5 class="mb-4 px-2">All Users List</h5>
+                <h5 class="mb-4 px-2">All Appoinment List</h5>
                 {/* pagination */}
                 {/* Pagination starts */}
                 <nav aria-label="Page navigation">
@@ -117,10 +119,12 @@ const Donor = () => {
                   <thead className="thead-dark blue_bg text-white">
                     <tr>
                       <th scope="col">Id</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Phone</th>
-                      <th scope="col">BloodType</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Unique Id</th>
+                      <th scope="col">Created At</th>
+                      <th scope="col">Format</th>
+                      <th scope="col">contactNumber</th>
                       <th scope="col"> Action</th>
                     </tr>
                   </thead>
@@ -128,10 +132,14 @@ const Donor = () => {
                     {currentUsers.map((user, index) => (
                       <tr key={index}>
                         <th scope="row">{indexOfFirstUser + index + 1}</th>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.contactNumber}</td>
-                        <td>{user.bloodType}</td>
+                        <td>
+                          {new Date(user.appointment_date).toLocaleDateString()}
+                        </td>
+                        <td>{user.status}</td>
+                        <td>{user.unique_id}</td>
+                        <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                        <td>{user.reminder_method}</td>
+                        <td>{user.donor_id.contactNumber}</td>
                         <td>
                           {userStatus.role === "admin" && (
                             <>
@@ -144,33 +152,7 @@ const Donor = () => {
                               >
                                 Edit
                               </button>
-                              {/* EditCampSchedule */}
-                              {/* <button
-                                type="button"
-                                className="btn btn-danger btn-sm"
-                                onClick={() => {
-                                  if (
-                                    window.confirm(
-                                      "Are you sure you want to delete this donor?"
-                                    )
-                                  ) {
-                                    axios
-                                      .delete(`donor/delete/${user._id}`)
-                                      .then((response) => {
-                                        console.log(response.data.message);
-                                        navigate("/all_donor"); // Navigate back to the list of donors
-                                      })
-                                      .catch((error) => {
-                                        console.error(
-                                          "There was an error deleting the donor!",
-                                          error
-                                        );
-                                      });
-                                  }
-                                }}
-                              >
-                                Delete
-                              </button> */}
+
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm"
@@ -207,4 +189,4 @@ const Donor = () => {
   );
 };
 
-export default Donor;
+export default AppoinmentList;
