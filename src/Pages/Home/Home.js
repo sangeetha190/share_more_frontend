@@ -145,7 +145,7 @@ const Home = () => {
               your <br /> email below to get daliy update about us
             </p>
 
-            <form action="">
+            <form action="" className="Home_email_container">
               <input
                 type="email"
                 maxlength="50"
