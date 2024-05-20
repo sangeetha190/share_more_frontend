@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import { Link } from "react-router-dom";
 // n
 const Home = () => {
   return (
@@ -205,36 +206,36 @@ const Home = () => {
                 </h6>
                 <ul className="list-unstyled footer-link mt-4">
                   <li className="mb-1">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       API
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-1">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       Website Tutorials
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-1">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       Third Party
-                    </a>
+                    </Link>
                   </li>
                   <li className="">
-                    <a
-                      href="/"
+                    <Link
+                      to="/"
                       className="text-white text-decoration-none fw-semibold"
                     >
                       Video Lectures
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
