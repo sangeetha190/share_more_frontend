@@ -228,8 +228,11 @@ const Home = () => {
                       Third Party
                     </a>
                   </li>
-                  <li href="/" className="">
-                    <a className="text-white text-decoration-none fw-semibold">
+                  <li className="">
+                    <a
+                      href="/"
+                      className="text-white text-decoration-none fw-semibold"
+                    >
                       Video Lectures
                     </a>
                   </li>
