@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
 const EditCampSchedule = () => {
@@ -147,7 +147,7 @@ const EditCampSchedule = () => {
           imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
         />
       );
-        navigate("/camp_schedule_list");
+      navigate("/camp_schedule_list");
       resetForm();
     } catch (error) {
       console.error("There was an error creating the camp schedule!", error);
