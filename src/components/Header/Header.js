@@ -31,7 +31,8 @@ const Header = () => {
         <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light header-navbar shadow-lg">
           <div className="container-fluid">
             <Link to="/" className="logo">
-              <img src="./images/logo5.png" alt="logo" />
+              {/* <img src="./images/logo5.png" alt="logo" /> */}
+              <img src="https://i.ibb.co/qYGCxnf/logo5.png" alt="logo" />
             </Link>
             <button
               className="navbar-toggler"
@@ -102,6 +103,11 @@ const Header = () => {
                         Camp schedules
                       </Link>
                     </li>
+                    <li>
+                      <Link className="dropdown-item" to="/search_camp">
+                        Location Based Camp schedules
+                      </Link>
+                    </li>
                   </ul>
                 </li>
                 <li className="nav-item dropdown">
@@ -120,10 +126,7 @@ const Header = () => {
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <Link
-                        className="dropdown-item"
-                        to="/page_under_maintance"
-                      >
+                      <Link className="dropdown-item" to="/share_food">
                         Share a Day
                       </Link>
                     </li>
@@ -145,10 +148,7 @@ const Header = () => {
                     aria-labelledby="navbarDropdown"
                   >
                     <li>
-                      <Link
-                        className="dropdown-item"
-                        to="/page_under_maintance"
-                      >
+                      <Link className="dropdown-item" to="/clothes_donation">
                         Share a Day
                       </Link>
                     </li>
@@ -169,23 +169,57 @@ const Header = () => {
                     className="dropdown-menu"
                     aria-labelledby="navbarDropdown"
                   >
+                    {user ? (
+                      <>
+                        <li>
+                          <Link
+                            to="/donor/appointment"
+                            className="dropdown-item"
+                          >
+                            Appointment Booking
+                          </Link>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <li>
+                          <Link to="/donor/register" className="dropdown-item">
+                            Donor Registration
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/donor/login1" className="dropdown-item">
+                            Donor Login
+                          </Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </li>
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Help Others
+                  </Link>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
                     <li>
-                      <Link to="/donor/register" className="dropdown-item">
-                        Donor Registration
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/donor/login1" className="dropdown-item">
-                        Donor Login
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/donor/appointment" className="dropdown-item">
-                        Appointment Booking
+                      <Link className="dropdown-item" to="/bloodrequestmessage">
+                        Paste Blood Request Message
                       </Link>
                     </li>
                   </ul>
                 </li>
+                {/* "Help Others: Paste Blood Request Message" */}
                 <h3>
                   {" "}
                   {user && user.role === "donor" && (

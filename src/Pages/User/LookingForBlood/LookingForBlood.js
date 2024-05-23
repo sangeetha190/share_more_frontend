@@ -18,6 +18,7 @@ const LookingForBlood = () => {
   const [selectedState, setSelectedState] = useState("");
   const [searchResults, setSearchResults] = useState({ data: [] });
   const [searched, setSearched] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // const [showPopup, setShowPopup] = useState(false); // Popup visibility state
   // const [showThankYou, setShowThankYou] = useState(false); // Thank you message visibility state
 
@@ -89,6 +90,7 @@ const LookingForBlood = () => {
       });
 
       setSearchResults(bloodSearchResult_data);
+      console.log(bloodSearchResult_data, "bloodSearchResult_data");
       setSearched(true);
       // toast.success("🦄 Wow so easy!", {
       //   position: "top-right",
@@ -98,12 +100,12 @@ const LookingForBlood = () => {
       //   position: "top-right",
       // });
       // =============== dynamic ==============
-      toast(
-        <Notify
-          message="Thank you. come Again"
-          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
-        />
-      ); // Show custom toast notification
+      // toast(
+      //   <Notify
+      //     message="Thank you. come Again"
+      //     imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+      //   />
+      // ); // Show custom toast notification
       // setShowPopup(true); // Show the popup
       // setShowThankYou(true); // Show the thank you message
       resetForm();
@@ -114,6 +116,48 @@ const LookingForBlood = () => {
     }
   };
 
+  // email sending.....
+  const handleSendEmail = async (email, donorName, bloodType) => {
+    const subject = "Urgent: Blood Donation Needed";
+    const text = `
+      Dear ${donorName},
+
+      We hope this message finds you well. We are reaching out to inform you that there is an urgent need for blood donations. Your help could save lives.
+
+      Details:
+      - Blood Type: ${bloodType}
+      
+      Thank you for your generosity and willingness to help.
+
+      Best regards,
+      Share More
+    `;
+    setIsSubmitting(true);
+    try {
+      const response = await axios.post("/email/send_email", {
+        to: email,
+        subject,
+        text,
+      });
+      toast(
+        <Notify
+          message="Email sent successfully"
+          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+        />
+      );
+    } catch (error) {
+      console.error("Error sending email: ", error);
+      // alert("Failed to send email");
+      toast(
+        <Notify
+          message="Failed to send email"
+          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+        />
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   // useEffect(() => {
   //   if (showPopup) {
   //     const modal = new window.bootstrap.Modal(
@@ -319,10 +363,33 @@ const LookingForBlood = () => {
                                 <p className="card-text">
                                   Blood Type: <b>{donor.bloodType}</b>
                                 </p>
-                                <button className="btn btn-primary mt-2">
+                                <button
+                                  className="btn btn-primary mt-2"
+                                  onClick={() =>
+                                    (window.location.href = `tel:${donor.contactNumber}`)
+                                  }
+                                >
                                   Call
                                 </button>
-                                <button className="btn btn-primary mt-2 mx-2">
+                                <button
+                                  className="btn btn-primary mt-2 mx-2"
+                                  onClick={() =>
+                                    handleSendEmail(
+                                      donor.email,
+                                      donor.name,
+                                      donor.bloodType
+                                    )
+                                  }
+                                  disabled={isSubmitting}
+                                >
+                                  {isSubmitting ? "Sending..." : "Email"}
+                                </button>
+                                <button
+                                  className="btn btn-primary mt-2 mx-2"
+                                  onClick={() =>
+                                    (window.location.href = `sms:${donor.contactNumber}`)
+                                  }
+                                >
                                   SMS
                                 </button>
                               </div>
