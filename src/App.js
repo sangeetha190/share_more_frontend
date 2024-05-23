@@ -1,7 +1,7 @@
 import React from "react";
 import "./assets/css/app.css";
 // import "./assets/js/own.js";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Sample from "./Pages/Sample";
 import Login from "./Pages/Login/Login";
