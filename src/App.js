@@ -33,6 +33,9 @@ import ShareFood from "./Pages/User/ShareFood/ShareFood";
 import ClothesDonation from "./Pages/User/ClothesDonation/ClothesDonation";
 import BloodRequestMessage from "./Pages/User/BloodRequestMessage/BloodRequestMessage";
 import SearchCamp from "./Pages/User/CampScheduleData_list/SearchCamp";
+import RazorpayPayment from "./Pages/User/RazorpayPayment";
+import AllHistory from "./Pages/User/History/AllHistory";
+import PaymentHistory from "./Pages/Admin/PaymentHistory/PaymentHistory";
 
 const App = () => {
   return (
@@ -173,7 +176,24 @@ const App = () => {
             </>
           }
         />
-
+        <Route
+          path="/razorpaymethod"
+          element={
+            <>
+              <Header />
+              <RazorpayPayment />
+            </>
+          }
+        />
+        <Route
+          path="/all_history"
+          element={
+            <>
+              <Header />
+              <AllHistory />
+            </>
+          }
+        />
         {/* Admin Side */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -199,6 +219,8 @@ const App = () => {
           <Route path="/org_list" element={<ListOrg />} />
           <Route path="/create_org" element={<CreateOrg />} />
           <Route path="/edit-org/:id" element={<EditOrg />} />
+
+          <Route path="/payment_history" element={<PaymentHistory />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>

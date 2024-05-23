@@ -1,0 +1,49 @@
+.nav .nav-item button.active {
+  background-color: transparent;
+  color: var(--bs-danger) !important;
+}
+.nav .nav-item button.active::after {
+  content: "";
+  border-right: 4px solid var(--bs-danger);
+  height: 100%;
+  position: absolute;
+  right: -1px;
+  top: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+.pending_bg {
+  background: #000000;
+  padding: 3px 12px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 700;
+}
+.success_bg {
+  background: #0eb013;
+  padding: 3px 12px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 700;
+}
+.history_side_nav {
+  width: 100%;
+}
+
+.history_side_nav .nav-item button {
+  background-color: black;
+  width: 100%;
+  color: #fff !important;
+  margin-bottom: 10px;
+}
+.history_side_nav .nav-item button.active {
+  background-color: #f01111 !important;
+  color: #ffffff !important;
+}
+.border-grey {
+  border-color: #d8d8d8 !important;
+}
+.history_side_nav .nav-item button.active::after {
+  border-right: 4px solid #f01111 !important;
+  border-radius: 0px 0 0 0px !important;
+}

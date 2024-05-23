@@ -219,12 +219,21 @@ const Header = () => {
                     </li>
                   </ul>
                 </li>
+                {/* all_history */}
+
                 {user ? (
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/dashboard">
-                      Dashboard
-                    </Link>
-                  </li>
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/dashboard">
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/all_history">
+                        History
+                      </Link>
+                    </li>
+                  </>
                 ) : (
                   ""
                 )}
@@ -306,7 +315,10 @@ const Header = () => {
                   )}
 
                   <button className="btn header_btn">
-                    <Link to={"/"} className="donate_btn text-white">
+                    <Link
+                      to={"/razorpaymethod"}
+                      className="donate_btn text-white"
+                    >
                       <i class="fa-solid fa-heart fa-beat-fade"></i> Donate
                     </Link>
                   </button>
