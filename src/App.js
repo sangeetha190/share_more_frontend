@@ -26,6 +26,13 @@ import CampList from "./Pages/Admin/CampSchedule/CampList";
 import EditCampSchedule from "./Pages/Admin/CampSchedule/EditCampSchedule";
 import CampSceduleDataList from "./Pages/User/CampScheduleData_list/CampSceduleData_list";
 import PageUnderMaintance from "./components/PageUnderMaintance/PageUnderMaintance";
+import CreateOrg from "./Pages/Admin/Organization/CreateOrg";
+import ListOrg from "./Pages/Admin/Organization/ListOrg";
+import EditOrg from "./Pages/Admin/Organization/EditOrg";
+import ShareFood from "./Pages/User/ShareFood/ShareFood";
+import ClothesDonation from "./Pages/User/ClothesDonation/ClothesDonation";
+import BloodRequestMessage from "./Pages/User/BloodRequestMessage/BloodRequestMessage";
+import SearchCamp from "./Pages/User/CampScheduleData_list/SearchCamp";
 
 const App = () => {
   return (
@@ -52,7 +59,54 @@ const App = () => {
               </>
             }
           />
+
+          <Route
+            path="/share_food"
+            element={
+              <>
+                <Header />
+                <ShareFood />
+              </>
+            }
+          />
+          <Route
+            path="/clothes_donation"
+            element={
+              <>
+                <Header />
+                <ClothesDonation />
+              </>
+            }
+          />
+          <Route
+            path="/bloodrequestmessage"
+            element={
+              <>
+                <Header />
+                <BloodRequestMessage />
+              </>
+            }
+          />
+          <Route
+            path="/donor/appointment"
+            element={
+              <>
+                <Header />
+                <DonorAppointment />
+              </>
+            }
+          />
+          <Route
+            path="/search_camp"
+            element={
+              <>
+                <Header />
+                <SearchCamp />
+              </>
+            }
+          />
         </Route>
+
         {/* Without Login you can access */}
         <Route
           path="/"
@@ -100,15 +154,7 @@ const App = () => {
             </>
           }
         />
-        <Route
-          path="/donor/appointment"
-          element={
-            <>
-              <Header />
-              <DonorAppointment />
-            </>
-          }
-        />
+
         <Route
           path="/all_camp_schedule"
           element={
@@ -127,6 +173,7 @@ const App = () => {
             </>
           }
         />
+
         {/* Admin Side */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -145,9 +192,13 @@ const App = () => {
             path="/camp_schedule_create"
             element={<CampScheduleCreate />}
           />
-
           <Route path="/camp_schedule_list" element={<CampList />} />
           <Route path="/camp_schedule/:id" element={<EditCampSchedule />} />
+
+          {/* or */}
+          <Route path="/org_list" element={<ListOrg />} />
+          <Route path="/create_org" element={<CreateOrg />} />
+          <Route path="/edit-org/:id" element={<EditOrg />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>

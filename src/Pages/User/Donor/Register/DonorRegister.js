@@ -33,28 +33,66 @@ const DonorRegister = () => {
 
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
-  // const [selectedState, setSelectedState] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [searchResults, setSearchResults] = useState({ data: [] });
+  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    // Dummy data for states
-    const dummyStates = [
-      { id: 1, name: "State 1" },
-      { id: 2, name: "State 2" },
-      // Add more states as needed
-    ];
+    const fetchStates = async () => {
+      try {
+        const response = await fetch(
+          "https://api.countrystatecity.in/v1/countries/IN/states",
+          {
+            method: "GET",
+            headers: {
+              "X-CSCAPI-KEY":
+                "NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==",
+            },
+          }
+        );
+        const statesData = await response.json();
+        setStates(statesData);
+        console.log(statesData);
+      } catch (error) {
+        console.error("Error fetching states:", error);
+      }
+    };
 
-    // Dummy data for districts
-    const dummyDistricts = [
-      { id: 1, name: "District 1", state: "State 1" },
-      { id: 2, name: "District 2", state: "State 1" },
-      { id: 3, name: "District 3", state: "State 2" },
-      // Add more districts as needed
-    ];
-
-    // Set states and districts using dummy data
-    setStates(dummyStates);
-    setDistricts(dummyDistricts);
+    fetchStates();
   }, []);
+
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      try {
+        const selectedStateData = states.find(
+          (state) => state.name === selectedState
+        );
+        const iso2Code = selectedStateData ? selectedStateData.iso2 : "";
+
+        if (iso2Code) {
+          const response = await fetch(
+            `https://api.countrystatecity.in/v1/countries/IN/states/${iso2Code}/cities`,
+            {
+              method: "GET",
+              headers: {
+                "X-CSCAPI-KEY":
+                  "NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==",
+              },
+            }
+          );
+          const districtsData = await response.json();
+          setDistricts(districtsData);
+        }
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+      }
+    };
+
+    if (selectedState) {
+      fetchDistricts();
+    }
+  }, [selectedState, states]);
+
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       const donor_response = await axios.post(`/donor/signup`, {
@@ -135,6 +173,7 @@ const DonorRegister = () => {
                           touched,
                           errors,
                           resetForm,
+                          setFieldValue,
                         }) => (
                           <Form>
                             <div className="row">
@@ -344,7 +383,7 @@ const DonorRegister = () => {
                               </div>
                             </div>
                             <div className="row">
-                              <div className="col-md-6">
+                              <div className="col-md-4">
                                 <div className="mb-3">
                                   <label htmlFor="state" className="form-label">
                                     State
@@ -359,6 +398,11 @@ const DonorRegister = () => {
                                         ? "is-valid"
                                         : ""
                                     }`}
+                                    onChange={(e) => {
+                                      const selectedValue = e.target.value;
+                                      setFieldValue("state", selectedValue);
+                                      setSelectedState(selectedValue);
+                                    }}
                                   >
                                     <option value="" disabled>
                                       Select State
@@ -376,7 +420,7 @@ const DonorRegister = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="col-md-6">
+                              <div className="col-md-4">
                                 <div className="mb-3">
                                   <label
                                     htmlFor="district"
@@ -395,7 +439,6 @@ const DonorRegister = () => {
                                         : ""
                                     }`}
                                   >
-                                    {/* districts */}
                                     <option value="" disabled>
                                       Select District
                                     </option>

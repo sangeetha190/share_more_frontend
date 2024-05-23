@@ -61,14 +61,14 @@ const Layout = () => {
                 <div className="menu-title">Dashboard</div>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/">
                 <div className="parent-icon">
                   <i className="bx bx-home-alt"></i>
                 </div>
                 <div className="menu-title">Go to Website</div>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/dashboard">
                 <div className="parent-icon">
@@ -171,6 +171,39 @@ const Layout = () => {
                 <li>
                   <Link to="/camp_schedule_list" className="logo">
                     <i className="bx bx-radio-circle"></i>All Camp_Schedule List
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            {/* Oranganization Mang  */}
+            <li>
+              <Link>
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <b>Org Management </b>
+                </div>
+              </Link>
+            </li>
+
+            <li>
+              <ul className="mt-0 pt-0">
+                {user_stauts && user_stauts.role === "admin" && (
+                  <>
+                    <li>
+                      <Link to="/create_org" className="logo">
+                        <i className="bx bx-radio-circle"></i>Create
+                        Oranganization
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link to="/org_list" className="logo">
+                    <i className="bx bx-radio-circle"></i>All Oranganization
+                    List
                   </Link>
                 </li>
               </ul>

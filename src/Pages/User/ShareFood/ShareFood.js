@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "../../../../axios";
-// import { useDispatch } from "react-redux";
-// import { handleLogin } from "../../../../slices/userSlice";
-// import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import axios from "../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Notify from "../../../../components/Notify/Notify";
+import Notify from "../../../components/Notify/Notify";
 
-const DonorAppointment = () => {
+const ShareFood = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedState, setSelectedState] = useState("");
@@ -27,9 +23,11 @@ const DonorAppointment = () => {
 
   const initialValues = {
     appointment: "",
-    reminder: "", // Default value
     state: "",
     district: "",
+    reminder: "", // Default value
+    contactNumber: "",
+    max_member: "",
   };
 
   const validationSchema = Yup.object({
@@ -44,6 +42,10 @@ const DonorAppointment = () => {
     reminder: Yup.string().required("Reminder is required"),
     state: Yup.string().required("State is required"),
     district: Yup.string().required("District is required"),
+    contactNumber: Yup.string()
+      .matches(/^[0-9]{10}$/, "Contact number must be exactly 10 digits")
+      .required("Contact number is required"),
+    max_member: Yup.string().required("Max Memeber is required"),
   });
 
   useEffect(() => {
@@ -114,7 +116,7 @@ const DonorAppointment = () => {
         throw new Error("No token found. Please log in again.");
       }
       const data_response = await axios.post(
-        `/organization/hospital_bloodbank`,
+        `/share_food/charity`,
         {
           state: values.state,
           district: values.district,
@@ -155,13 +157,15 @@ const DonorAppointment = () => {
       }
 
       const donor_response = await axios.post(
-        `/blood_donor_appointment/booking`,
+        `/share_food/create`,
         {
-          appointment_date: values.appointment,
-          reminder_method: values.reminder,
+          date: values.appointment,
           state: values.state,
           district: values.district,
-          hosptial_blood_bank_id: refer_id,
+          maxMember: values.max_member,
+          contactNumber: values.contactNumber,
+          action: values.reminder,
+          charityId: refer_id,
         },
         {
           headers: {
@@ -184,7 +188,7 @@ const DonorAppointment = () => {
       console.error("Error during form submission:", error);
     } finally {
       setSearched(true);
-      setSearchResults({ data: [] });
+      // setSearchResults({ data: [] });
     }
   };
 
@@ -192,7 +196,7 @@ const DonorAppointment = () => {
     <div className="mt-5 pt-5 container">
       <div className="card pt-4">
         <div className="card-body">
-          <h4>Appointment Booking</h4>
+          <h4>Share Your Day</h4>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -234,69 +238,6 @@ const DonorAppointment = () => {
                       className="text-danger"
                     />
                   </div>
-
-                  {/* <div className="col-5">
-                    <label htmlFor="reminder">Reminder (Optional):</label>
-
-                    <div className="form-check">
-                      <Field
-                        className={`form-check-input ${
-                          touched.reminder && errors.reminder
-                            ? "is-invalid"
-                            : touched.reminder
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        type="radio"
-                        name="reminder"
-                        id="emailReminder"
-                        value="email"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="emailReminder"
-                      >
-                        Email
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <Field
-
-                        className={`form-check-input ${
-                          touched.reminder && errors.reminder
-                            ? "is-invalid"
-                            : touched.reminder
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        type="radio"
-                        name="reminder"
-                        id="smsReminder"
-                        value="sms"
-                      />
-                      <label className="form-check-label" htmlFor="smsReminder">
-                        SMS
-                      </label>
-                    </div>
-                    <Field
-                      as="select"
-                      name="reminder"
-                      className={`form-check-input ${
-                        touched.reminder && errors.reminder
-                          ? "is-invalid"
-                          : touched.reminder
-                          ? "is-valid"
-                          : ""
-                      }`}
-                    >
-                      <option selected disabled>
-                        Select The Reminder Method
-                      </option>
-                      <option value="email">Email</option>
-                      <option value="sms">SMS</option>
-                    </Field>
-                 
-                  </div> */}
                   <div className="col-md-3">
                     <div className="mb-3">
                       <label htmlFor="state" className="form-label">
@@ -368,7 +309,7 @@ const DonorAppointment = () => {
                   </div>
                   <div className="col-3">
                     <label htmlFor="reminder" className="form-label">
-                      Select Reminder Method:
+                      Select Method:
                     </label>
                     <Field
                       as="select"
@@ -384,15 +325,63 @@ const DonorAppointment = () => {
                       <option value="" disabled>
                         Select...
                       </option>
-                      <option value="none">None</option>
-                      <option value="email">Email</option>
-                      <option value="sms">SMS</option>
+                      <option value="collect">Collect</option>
+                      <option value="visit">Visit</option>
                     </Field>
                     <ErrorMessage
                       name="reminder"
                       component="div"
                       className="text-danger"
                     />
+                  </div>
+                  <div className="row">
+                    <div className="col-3">
+                      <div className="mb-3">
+                        <label htmlFor="contactNumber" className="form-label">
+                          Contact Number
+                        </label>
+                        <Field
+                          type="text"
+                          name="contactNumber"
+                          className={`form-control ${
+                            touched.contactNumber && errors.contactNumber
+                              ? "is-invalid"
+                              : touched.contactNumber
+                              ? "is-valid"
+                              : ""
+                          }`}
+                        />
+                        <ErrorMessage
+                          name="contactNumber"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-3">
+                      <div className="mb-3">
+                        <label htmlFor="max_member" className="form-label">
+                          Max Memeber
+                        </label>
+                        <Field
+                          type="text"
+                          name="max_member"
+                          className={`form-control ${
+                            touched.max_member && errors.max_member
+                              ? "is-invalid"
+                              : touched.max_member
+                              ? "is-valid"
+                              : ""
+                          }`}
+                        />
+                        <ErrorMessage
+                          name="max_member"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/* <button
@@ -451,13 +440,13 @@ const DonorAppointment = () => {
           {searched && (
             <div className="container pt-4">
               <div className="row">
-                <h5 className="px-2">Hospital and Blood Bank Details</h5>
+                <h5 className="px-2">Charity Details</h5>
                 <div className="table-responsive pb-2">
                   <table className="table table-bordered table-hover">
                     <thead className="thead-dark red_bg text-white">
                       <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Charity Name</th>
                         <th scope="col">Place</th>
                         <th scope="col">Action</th>
                       </tr>
@@ -478,12 +467,12 @@ const DonorAppointment = () => {
                             <td>
                               <button
                                 type="button"
-                                className="btn btn-success me-2 mx-2"
+                                className="btn btn-primary me-2 mx-2"
                                 onClick={() => {
                                   BookingAppointment(formValues, data._id); // Pass the form values and donor object to the function
                                 }}
                               >
-                                Book Appoinment
+                                Select The Charity
                               </button>
                             </td>
                           </tr>
@@ -501,4 +490,4 @@ const DonorAppointment = () => {
   );
 };
 
-export default DonorAppointment;
+export default ShareFood;

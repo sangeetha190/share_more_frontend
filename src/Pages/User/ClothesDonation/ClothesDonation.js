@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "../../../../axios";
-// import { useDispatch } from "react-redux";
-// import { handleLogin } from "../../../../slices/userSlice";
-// import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import axios from "../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Notify from "../../../../components/Notify/Notify";
+import Notify from "../../../components/Notify/Notify";
 
-const DonorAppointment = () => {
+const ClothesDonation = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedState, setSelectedState] = useState("");
-  const [searchResults, setSearchResults] = useState({ data: [] });
-  const [searched, setSearched] = useState(false);
-  const [formValues, setFormValues] = useState(null); // Declare formValues state
-
+  // const [searchResults, setSearchResults] = useState({ data: [] });
+  // const [searched, setSearched] = useState(false);
+  // const [formValues, setFormValues] = useState(null); // Declare formValues state
+  // const [showPopup, setShowPopup] = useState(false); // Popup visibility state
+  const [showThankYou, setShowThankYou] = useState(false); // Thank you message visibility state
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
+
   const isFutureDate = (date) => {
     const today = new Date();
     return date >= today;
@@ -27,9 +25,10 @@ const DonorAppointment = () => {
 
   const initialValues = {
     appointment: "",
-    reminder: "", // Default value
     state: "",
     district: "",
+    contactNumber: "",
+    address: "",
   };
 
   const validationSchema = Yup.object({
@@ -41,9 +40,12 @@ const DonorAppointment = () => {
         "The appointment date must be in the future.",
         isFutureDate
       ),
-    reminder: Yup.string().required("Reminder is required"),
     state: Yup.string().required("State is required"),
     district: Yup.string().required("District is required"),
+    contactNumber: Yup.string()
+      .matches(/^[0-9]{10}$/, "Contact number must be exactly 10 digits")
+      .required("Contact number is required"),
+    address: Yup.string().required("Address is required"),
   });
 
   useEffect(() => {
@@ -107,17 +109,19 @@ const DonorAppointment = () => {
     { setSubmitting, setErrors, resetForm }
   ) => {
     console.log(values, "Values.........");
-    // ["email", "sms", "none"],
     try {
       const token = localStorage.getItem("token"); // Retrieve the token from local storage
       if (!token) {
         throw new Error("No token found. Please log in again.");
       }
       const data_response = await axios.post(
-        `/organization/hospital_bloodbank`,
+        `/clothes_donation/create`,
         {
+          date: values.appointment,
           state: values.state,
           district: values.district,
+          contactNumber: values.contactNumber,
+          address: values.address,
         },
         {
           headers: {
@@ -125,9 +129,22 @@ const DonorAppointment = () => {
           },
         }
       );
-      setSearchResults(data_response);
+      // setSearchResults(data_response);
       console.log(data_response);
-      setSearched(true);
+      toast(
+        <Notify
+          message="Thank you for contact us."
+          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+          progressBarColor="red"
+        />
+      );
+      // setShowPopup(true); // Show the popup
+      // setShowPopup(true); // Show the popup
+      setShowThankYou(true); // Show the thank you message
+      // Set a timeout to hide the thank you message after 5 seconds
+      setTimeout(() => {
+        setShowThankYou(false);
+      }, 10000);
     } catch (error) {
       console.error("Error during form submission:", error); // Log the error
 
@@ -140,65 +157,66 @@ const DonorAppointment = () => {
       }
     } finally {
       setSubmitting(false);
+      resetForm();
     }
   };
-  const handleClear = () => {
-    setSearched(false);
-    setSearchResults({ data: [] });
-  };
-  const BookingAppointment = async (values, refer_id) => {
-    console.log(values, refer_id, "Values.........");
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("No token found. Please log in again.");
-      }
+  //   const handleClear = () => {
+  //     setSearched(false);
+  //     setSearchResults({ data: [] });
+  //   };
+  //   const BookingAppointment = async (values, refer_id) => {
+  //     console.log(values, refer_id, "Values.........");
+  //     try {
+  //       const token = localStorage.getItem("token");
+  //       if (!token) {
+  //         throw new Error("No token found. Please log in again.");
+  //       }
 
-      const donor_response = await axios.post(
-        `/blood_donor_appointment/booking`,
-        {
-          appointment_date: values.appointment,
-          reminder_method: values.reminder,
-          state: values.state,
-          district: values.district,
-          hosptial_blood_bank_id: refer_id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  //       const donor_response = await axios.post(
+  //         `/share_food/create`,
+  //         {
+  //           date: values.appointment,
+  //           state: values.state,
+  //           district: values.district,
+  //           contactNumber: values.contactNumber,
+  //           address: values.address,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
 
-      console.log(donor_response);
+  //       console.log(donor_response);
 
-      // Display a notification to the user
-      toast(
-        <Notify
-          message="Your appointment has been booked successfully."
-          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
-          progressBarColor="red"
-        />
-      );
-    } catch (error) {
-      console.error("Error during form submission:", error);
-    } finally {
-      setSearched(true);
-      setSearchResults({ data: [] });
-    }
-  };
+  //       // Display a notification to the user
+  //       toast(
+  //         <Notify
+  //           message="Your appointment has been booked successfully."
+  //           imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+  //           progressBarColor="red"
+  //         />
+  //       );
+  //     } catch (error) {
+  //       console.error("Error during form submission:", error);
+  //     } finally {
+  //       setSearched(true);
+  //       // setSearchResults({ data: [] });
+  //     }
+  //   };
 
   return (
     <div className="mt-5 pt-5 container">
       <div className="card pt-4">
         <div className="card-body">
-          <h4>Appointment Booking</h4>
+          <h4>Share More Things</h4>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             // onSubmit={handleSubmit}
             onSubmit={(values, actions) => {
-              setFormValues(values); // Update formValues state
+              // setFormValues(values); // Update formValues state
               handleSubmit(values, actions);
             }}
           >
@@ -234,69 +252,6 @@ const DonorAppointment = () => {
                       className="text-danger"
                     />
                   </div>
-
-                  {/* <div className="col-5">
-                    <label htmlFor="reminder">Reminder (Optional):</label>
-
-                    <div className="form-check">
-                      <Field
-                        className={`form-check-input ${
-                          touched.reminder && errors.reminder
-                            ? "is-invalid"
-                            : touched.reminder
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        type="radio"
-                        name="reminder"
-                        id="emailReminder"
-                        value="email"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="emailReminder"
-                      >
-                        Email
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <Field
-
-                        className={`form-check-input ${
-                          touched.reminder && errors.reminder
-                            ? "is-invalid"
-                            : touched.reminder
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        type="radio"
-                        name="reminder"
-                        id="smsReminder"
-                        value="sms"
-                      />
-                      <label className="form-check-label" htmlFor="smsReminder">
-                        SMS
-                      </label>
-                    </div>
-                    <Field
-                      as="select"
-                      name="reminder"
-                      className={`form-check-input ${
-                        touched.reminder && errors.reminder
-                          ? "is-invalid"
-                          : touched.reminder
-                          ? "is-valid"
-                          : ""
-                      }`}
-                    >
-                      <option selected disabled>
-                        Select The Reminder Method
-                      </option>
-                      <option value="email">Email</option>
-                      <option value="sms">SMS</option>
-                    </Field>
-                 
-                  </div> */}
                   <div className="col-md-3">
                     <div className="mb-3">
                       <label htmlFor="state" className="form-label">
@@ -367,8 +322,31 @@ const DonorAppointment = () => {
                     </div>
                   </div>
                   <div className="col-3">
+                    <div className="mb-3">
+                      <label htmlFor="contactNumber" className="form-label">
+                        Contact Number
+                      </label>
+                      <Field
+                        type="text"
+                        name="contactNumber"
+                        className={`form-control ${
+                          touched.contactNumber && errors.contactNumber
+                            ? "is-invalid"
+                            : touched.contactNumber
+                            ? "is-valid"
+                            : ""
+                        }`}
+                      />
+                      <ErrorMessage
+                        name="contactNumber"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                  </div>
+                  {/* <div className="col-3">
                     <label htmlFor="reminder" className="form-label">
-                      Select Reminder Method:
+                      Select Method:
                     </label>
                     <Field
                       as="select"
@@ -384,15 +362,40 @@ const DonorAppointment = () => {
                       <option value="" disabled>
                         Select...
                       </option>
-                      <option value="none">None</option>
-                      <option value="email">Email</option>
-                      <option value="sms">SMS</option>
+                      <option value="collect">Collect</option>
+                      <option value="visit">Visit</option>
                     </Field>
                     <ErrorMessage
                       name="reminder"
                       component="div"
                       className="text-danger"
                     />
+                  </div> */}
+                  <div className="row">
+                    <div className="col-6">
+                      <div className="mb-3">
+                        <label htmlFor="address" className="form-label">
+                          Address
+                        </label>
+                        <Field
+                          as="textarea"
+                          name="address"
+                          className={`form-control ${
+                            touched.address && errors.address
+                              ? "is-invalid"
+                              : touched.address
+                              ? "is-valid"
+                              : ""
+                          }`}
+                          style={{ height: "100px" }}
+                        />
+                        <ErrorMessage
+                          name="address"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/* <button
@@ -407,14 +410,14 @@ const DonorAppointment = () => {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Search"}
+                  {isSubmitting ? "Submitting..." : "Submit"}
                 </button>
                 <button
                   type="button"
                   className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
                   onClick={() => {
                     resetForm();
-                    setSearched(false);
+                    // setSearched(false);
                   }}
                 >
                   Clear
@@ -424,81 +427,18 @@ const DonorAppointment = () => {
           </Formik>
           {/* Notify container */}
           <ToastContainer />
-
-          {/* <div className="table-responsive pb-2">
-            <table className="table table-bordered table-hover ">
-              <thead className="thead-dark red_bg text-white">
-                <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Place</th>
-                  <th scope="col">Acction</th>
-                </tr>
-              </thead>
-              <tbody>
-                {searchResults.data.map((donor, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{donor.name}</td>
-                    <td>{donor.state}</td>
-                    <td>{donor._id}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div> */}
-          {/* Searched Data */}
-          {searched && (
-            <div className="container pt-4">
-              <div className="row">
-                <h5 className="px-2">Hospital and Blood Bank Details</h5>
-                <div className="table-responsive pb-2">
-                  <table className="table table-bordered table-hover">
-                    <thead className="thead-dark red_bg text-white">
-                      <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Place</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {searchResults.data.length === 0 ? (
-                        <tr>
-                          <td colSpan="4" className="text-center">
-                            No details found.
-                          </td>
-                        </tr>
-                      ) : (
-                        searchResults.data.map((data, index) => (
-                          <tr key={index}>
-                            <th scope="row">{index + 1}</th>
-                            <td className="text-capitalize">{data.name}</td>
-                            <td>{data.state}</td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-success me-2 mx-2"
-                                onClick={() => {
-                                  BookingAppointment(formValues, data._id); // Pass the form values and donor object to the function
-                                }}
-                              >
-                                Book Appoinment
-                              </button>
-                            </td>
-                          </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+          {showThankYou && (
+            <div className="alert alert-success mt-4" role="alert">
+              Thank you! We will contact you soon. <br />
+              The ID has been sent to your email. <br />
+              As a gift, you will receive a plant!
             </div>
           )}
+          {/* test */}
         </div>
       </div>
     </div>
   );
 };
 
-export default DonorAppointment;
+export default ClothesDonation;
