@@ -139,7 +139,7 @@ const Login = () => {
                           <div>
                             <Link
                               to={!user_stauts && "/register"}
-                              className="signup_btn"
+                              className="signup_btn_text"
                             >
                               Create an account
                             </Link>

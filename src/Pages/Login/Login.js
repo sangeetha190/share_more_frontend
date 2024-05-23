@@ -77,7 +77,11 @@ const Login = () => {
       }
     }
   };
+  const [showPassword, setShowPassword] = useState(false); // State variable to track password visibility
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   return (
     <>
       <div className="container">
@@ -125,20 +129,34 @@ const Login = () => {
                         <p className="text-danger">{emailError}</p>
                       )}
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 ">
                       <label htmlFor="password" className="form-label">
                         Password
                       </label>
-                      <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        onBlur={validateFields}
-                        className="form-control"
-                        id="password"
-                        placeholder="Password"
-                      />
-                      {/* Validate fields onBlur */}
+                      <div className="input-group">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          onBlur={validateFields}
+                          className="form-control"
+                          id="password"
+                          placeholder="Password"
+                        />
+                        {/* Validate fields onBlur */}
+
+                        <div
+                          className="input-group-text bg-transparent"
+                          onClick={togglePasswordVisibility} // Toggle password visibility when the eye icon is clicked
+                        >
+                          <i
+                            className={`fa-solid ${
+                              showPassword ? "fa-eye-slash" : "fa-eye"
+                            }`}
+                          ></i>{" "}
+                          {/* Toggle eye icon based on showPassword state */}
+                        </div>
+                      </div>
                       {passwordError && (
                         <p className="text-danger">{passwordError}</p>
                       )}
@@ -150,7 +168,7 @@ const Login = () => {
                       <div>
                         <Link
                           to={!user_stauts && "/register"}
-                          className="signup_btn"
+                          className="signup_btn_text"
                         >
                           Create an account
                         </Link>

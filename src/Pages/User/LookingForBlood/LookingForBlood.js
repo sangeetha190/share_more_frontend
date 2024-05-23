@@ -18,7 +18,8 @@ const LookingForBlood = () => {
   const [selectedState, setSelectedState] = useState("");
   const [searchResults, setSearchResults] = useState({ data: [] });
   const [searched, setSearched] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittingStates, setSubmittingStates] = useState({});
   // const [showPopup, setShowPopup] = useState(false); // Popup visibility state
   // const [showThankYou, setShowThankYou] = useState(false); // Thank you message visibility state
 
@@ -117,7 +118,50 @@ const LookingForBlood = () => {
   };
 
   // email sending.....
-  const handleSendEmail = async (email, donorName, bloodType) => {
+  // const handleSendEmail = async (email, donorName, bloodType) => {
+  //   const subject = "Urgent: Blood Donation Needed";
+  //   const text = `
+  //     Dear ${donorName},
+
+  //     We hope this message finds you well. We are reaching out to inform you that there is an urgent need for blood donations. Your help could save lives.
+
+  //     Details:
+  //     - Blood Type: ${bloodType}
+
+  //     Thank you for your generosity and willingness to help.
+
+  //     Best regards,
+  //     Share More
+  //   `;
+  //   setIsSubmitting(true);
+  //   try {
+  //     const response = await axios.post("/email/send_email", {
+  //       to: email,
+  //       subject,
+  //       text,
+  //     });
+  //     toast(
+  //       <Notify
+  //         message="Email sent successfully"
+  //         imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+  //       />
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error("Error sending email: ", error);
+  //     // alert("Failed to send email");
+  //     toast(
+  //       <Notify
+  //         message="Failed to send email"
+  //         imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+  //       />
+  //     );
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+  const handleSendEmail = async (email, donorName, bloodType, donorId) => {
     const subject = "Urgent: Blood Donation Needed";
     const text = `
       Dear ${donorName},
@@ -132,7 +176,9 @@ const LookingForBlood = () => {
       Best regards,
       Share More
     `;
-    setIsSubmitting(true);
+
+    setSubmittingStates((prev) => ({ ...prev, [donorId]: true }));
+
     try {
       const response = await axios.post("/email/send_email", {
         to: email,
@@ -148,7 +194,6 @@ const LookingForBlood = () => {
       console.log(response);
     } catch (error) {
       console.error("Error sending email: ", error);
-      // alert("Failed to send email");
       toast(
         <Notify
           message="Failed to send email"
@@ -156,7 +201,7 @@ const LookingForBlood = () => {
         />
       );
     } finally {
-      setIsSubmitting(false);
+      setSubmittingStates((prev) => ({ ...prev, [donorId]: false }));
     }
   };
   // useEffect(() => {
@@ -372,7 +417,7 @@ const LookingForBlood = () => {
                                 >
                                   Call
                                 </button>
-                                <button
+                                {/* <button
                                   className="btn btn-primary mt-2 mx-2"
                                   onClick={() =>
                                     handleSendEmail(
@@ -384,6 +429,22 @@ const LookingForBlood = () => {
                                   disabled={isSubmitting}
                                 >
                                   {isSubmitting ? "Sending..." : "Email"}
+                                </button> */}
+                                <button
+                                  className="btn btn-primary mt-2 mx-2"
+                                  onClick={() =>
+                                    handleSendEmail(
+                                      donor.email,
+                                      donor.name,
+                                      donor.bloodType,
+                                      donor._id
+                                    )
+                                  }
+                                  disabled={submittingStates[donor._id]}
+                                >
+                                  {submittingStates[donor._id]
+                                    ? "Sending..."
+                                    : "Email"}
                                 </button>
                                 <button
                                   className="btn btn-primary mt-2 mx-2"

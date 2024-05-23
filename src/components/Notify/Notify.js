@@ -6,7 +6,7 @@ const Notify = ({ message, imgUrl }) => {
       <img
         src={imgUrl}
         alt="Custom"
-        style={{ width: "50px", marginRight: "10px" }}
+        style={{ width: "55px", marginRight: "10px" }}
       />
       {message}
     </div>

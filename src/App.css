@@ -10,3 +10,6 @@
 .text_blue {
   color: #008cff;
 }
+.success_bg2 {
+  background-color: red !important;
+}

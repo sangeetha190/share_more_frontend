@@ -79,7 +79,11 @@ const Register = () => {
       }
     }
   };
+  const [showPassword, setShowPassword] = useState(false); // State variable to track password visibility
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   return (
     <div className="container">
       <button className="btn btn-primary px-5 position-absoulte right-0">
@@ -157,15 +161,28 @@ const Register = () => {
                     <label htmlFor="password" className="form-label">
                       Password
                     </label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      onBlur={validateFields}
-                      className="form-control"
-                      id="password"
-                      placeholder="Password"
-                    />
+                    <div className="input-group">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onBlur={validateFields}
+                        className="form-control"
+                        id="password"
+                        placeholder="Password"
+                      />
+
+                      <div
+                        className="input-group-text bg-transparent"
+                        onClick={togglePasswordVisibility} // Toggle password visibility when the eye icon is clicked
+                      >
+                        <i
+                          className={`fa-solid ${
+                            showPassword ? "fa-eye-slash" : "fa-eye"
+                          }`}
+                        ></i>{" "}
+                      </div>
+                    </div>
                     {passwordError && (
                       <p className="text-danger">{passwordError}</p>
                     )}
@@ -177,7 +194,7 @@ const Register = () => {
                     </button>
                     <div>
                       Already have an account?
-                      <Link to={"/login"} className="signup_btn px-1">
+                      <Link to={"/login"} className="signup_btn_text px-1">
                         Login
                       </Link>
                     </div>

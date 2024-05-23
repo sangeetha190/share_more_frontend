@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser, handleLogin, logout } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,14 @@ const Layout = () => {
   const navigate = useNavigate();
   // if token is not in the localstorage or user value is not in the redux then call the midleware
   const dispatch = useDispatch();
+
+  const [openSubMenu, setOpenSubMenu] = useState(null);
+
+  const toggleSubMenu = (menuName) => {
+    setOpenSubMenu((prevSubMenu) =>
+      prevSubMenu === menuName ? null : menuName
+    );
+  };
   useEffect(() => {
     let token = localStorage.getItem("token");
     if (token && !user_stauts) {
@@ -69,6 +77,9 @@ const Layout = () => {
                 <div className="menu-title">Go to Website</div>
               </Link>
             </li> */}
+
+            {/* test starts */}
+            {/* test starts */}
             <li>
               <Link to="/dashboard">
                 <div className="parent-icon">
@@ -176,8 +187,54 @@ const Layout = () => {
               </ul>
             </li>
 
-            {/* Oranganization Mang  */}
+            {/* test */}
             <li>
+              <div
+                onClick={() => toggleSubMenu("org")}
+                style={{ cursor: "pointer" }}
+                className="title_menu_dashboard"
+              >
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title px-2">
+                  <b>Org Management</b>
+                  {openSubMenu === "org" ? (
+                    <i
+                      className="fa-solid fa-chevron-up"
+                      style={{ marginLeft: "10px" }}
+                    ></i>
+                  ) : (
+                    <i
+                      className="fa-solid fa-chevron-down"
+                      style={{ marginLeft: "10px" }}
+                    ></i>
+                  )}
+                </div>
+              </div>
+            </li>
+
+            {openSubMenu === "org" && (
+              <ul className="mt-0 pt-0">
+                {user_stauts && user_stauts.role === "admin" && (
+                  <>
+                    <li>
+                      <Link to="/create_org" className="logo">
+                        <i className="bx bx-radio-circle"></i>Create
+                        Organization
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link to="/org_list" className="logo">
+                    <i className="bx bx-radio-circle"></i>All Organization List
+                  </Link>
+                </li>
+              </ul>
+            )}
+            {/* Oranganization Mang  */}
+            {/* <li>
               <Link>
                 <div className="parent-icon">
                   <i className="bx bx-home-alt"></i>
@@ -207,6 +264,17 @@ const Layout = () => {
                   </Link>
                 </li>
               </ul>
+            </li> */}
+            {/* Payment History */}
+            <li>
+              <Link to="/payment_history">
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <b>Donation History </b>
+                </div>
+              </Link>
             </li>
           </ul>
           {/* <!--end navigation--> */}
