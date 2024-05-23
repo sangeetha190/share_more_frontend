@@ -145,6 +145,7 @@ const LookingForBlood = () => {
           imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
         />
       );
+      console.log(response);
     } catch (error) {
       console.error("Error sending email: ", error);
       // alert("Failed to send email");
