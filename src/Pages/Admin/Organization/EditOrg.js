@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Layout from "../Layout/Layout";
@@ -9,7 +9,6 @@ const EditOrg = () => {
   const navigate = useNavigate();
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
-  const [selectedState, setSelectedState] = useState("");
   const { id } = useParams();
   const [initialValues, setInitialValues] = useState({
     name: "",
@@ -17,6 +16,42 @@ const EditOrg = () => {
     district: "",
     type: "",
   });
+
+  // Fetch districts for a given state
+  const fetchDistrictsForState = useCallback(
+    async (stateName) => {
+      try {
+        if (stateName) {
+          const selectedStateData = states.find(
+            (state) => state.name === stateName
+          );
+          const iso2Code = selectedStateData ? selectedStateData.iso2 : "";
+
+          if (iso2Code) {
+            const response = await fetch(
+              `https://api.countrystatecity.in/v1/countries/IN/states/${iso2Code}/cities`,
+              {
+                method: "GET",
+                headers: {
+                  "X-CSCAPI-KEY": "YOUR_API_KEY_HERE",
+                },
+              }
+            );
+            const districtsData = await response.json();
+            setDistricts(districtsData);
+          } else {
+            setDistricts([]); // Clear districts if no state is selected
+          }
+        } else {
+          setDistricts([]); // Clear districts if no state name is provided
+        }
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+        setDistricts([]); // Ensure districts is an array in case of error
+      }
+    },
+    [states]
+  );
 
   // Fetch organization data
   useEffect(() => {
@@ -30,8 +65,6 @@ const EditOrg = () => {
           district: orgData.district || "",
           type: orgData.type || "",
         });
-        console.log(orgData, "orgData");
-
         if (orgData.state) {
           fetchDistrictsForState(orgData.state);
         }
@@ -41,7 +74,7 @@ const EditOrg = () => {
     };
 
     fetchOrgData();
-  }, [id]);
+  }, [id, fetchDistrictsForState]);
 
   // Validation schema
   const validationSchema = Yup.object().shape({
@@ -74,40 +107,6 @@ const EditOrg = () => {
 
     fetchStates();
   }, []);
-
-  // Fetch districts for a given state
-  const fetchDistrictsForState = async (stateName) => {
-    try {
-      if (stateName) {
-        // Check if stateName is provided
-        const selectedStateData = states.find(
-          (state) => state.name === stateName
-        );
-        const iso2Code = selectedStateData ? selectedStateData.iso2 : "";
-
-        if (iso2Code) {
-          const response = await fetch(
-            `https://api.countrystatecity.in/v1/countries/IN/states/${iso2Code}/cities`,
-            {
-              method: "GET",
-              headers: {
-                "X-CSCAPI-KEY": "YOUR_API_KEY_HERE",
-              },
-            }
-          );
-          const districtsData = await response.json();
-          setDistricts(districtsData);
-        } else {
-          setDistricts([]); // Clear districts if no state is selected
-        }
-      } else {
-        setDistricts([]); // Clear districts if no state name is provided
-      }
-    } catch (error) {
-      console.error("Error fetching districts:", error);
-      setDistricts([]); // Ensure districts is an array in case of error
-    }
-  };
 
   // Form submission
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -234,7 +233,6 @@ const EditOrg = () => {
                                       const selectedValue = e.target.value;
                                       setFieldValue("state", selectedValue);
                                       setFieldValue("district", ""); // Clear district when state changes
-                                      setSelectedState(selectedValue);
                                       fetchDistrictsForState(selectedValue); // Fetch districts for the selected state
                                     }}
                                     value={values.state} // Ensure the selected value is set

@@ -34,8 +34,8 @@ const DonorRegister = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedState, setSelectedState] = useState("");
-  const [searchResults, setSearchResults] = useState({ data: [] });
-  const [searched, setSearched] = useState(false);
+  // const [searchResults, setSearchResults] = useState({ data: [] });
+  // const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     const fetchStates = async () => {
