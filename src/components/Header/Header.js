@@ -219,6 +219,15 @@ const Header = () => {
                     </li>
                   </ul>
                 </li>
+                {user ? (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard">
+                      Dashboard
+                    </Link>
+                  </li>
+                ) : (
+                  ""
+                )}
                 {/* "Help Others: Paste Blood Request Message" */}
                 <h3>
                   {" "}
@@ -253,6 +262,7 @@ const Header = () => {
                             {user?.name ? user.name[0] : ""}
                           </span>
                         </button>
+
                         <ul
                           class="dropdown-menu profile_drop-down"
                           aria-labelledby="dropdownMenuButton1"
