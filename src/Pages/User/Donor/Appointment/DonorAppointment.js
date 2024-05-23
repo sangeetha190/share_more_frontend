@@ -142,10 +142,10 @@ const DonorAppointment = () => {
       setSubmitting(false);
     }
   };
-  const handleClear = () => {
-    setSearched(false);
-    setSearchResults({ data: [] });
-  };
+  // const handleClear = () => {
+  //   setSearched(false);
+  //   setSearchResults({ data: [] });
+  // };
   const BookingAppointment = async (values, refer_id) => {
     console.log(values, refer_id, "Values.........");
     try {
