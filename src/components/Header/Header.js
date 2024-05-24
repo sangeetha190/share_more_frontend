@@ -223,11 +223,11 @@ const Header = () => {
 
                 {user ? (
                   <>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link className="nav-link" to="/dashboard">
                         Dashboard
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <Link className="nav-link" to="/all_history">
                         History
