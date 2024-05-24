@@ -166,14 +166,14 @@ const Home = () => {
                 className="w-120px"
               />
             </div>
-            <div className="shape-4">
-              {/* <img src="/img/shape/7.png" alt="image1" /> */}
+            {/* <div className="shape-4">
+              <img src="/img/shape/7.png" alt="image1" />
               <img
                 src="https://cdn3d.iconscout.com/3d/premium/thumb/planet-earth-6923826-5685373.png?f=webp"
                 alt="image1"
                 className="w-50px"
               />
-            </div>
+            </div> */}
             <div className="shape-5">
               {/* <img src="/img/shape/6.png" alt="image1" /> */}
               <img
