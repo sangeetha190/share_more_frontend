@@ -3756,3 +3756,6 @@ input::placeholder {
   color: #fff;
   font-weight: 700;
 }
+.red_bg {
+  background-color: red;
+}

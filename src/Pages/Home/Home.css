@@ -3288,3 +3288,8 @@ blockquote::after,
 .default-shape .shape-3_withoutanimation img {
   width: 250px;
 }
+@media (max-width: 991px) {
+  .main-banner {
+    height: 936px;
+  }
+}
