@@ -134,7 +134,7 @@ const Home = () => {
                   </div>
                   <div className="col-lg-6">
                     <div className="banner-image1">
-                      <img src="/img/dark.png" alt="image1" />
+                      <img src="/banner00.png" alt="image1" />
                     </div>
                   </div>
                 </div>
