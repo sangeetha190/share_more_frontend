@@ -6,7 +6,7 @@ const instance = axios.create({
   // baseURL: "https://share-more-backend-2.onrender.com/api",
 
   // baseURL: "http://localhost:4000/api",
-  baseURL: "https://share-more-backend-2.onrender.com/api",
+  baseURL: "https://share-more-backend-3.onrender.com/api",
 });
 
 export default instance;
