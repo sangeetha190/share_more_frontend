@@ -5,7 +5,9 @@ import axios from "../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
-
+import HelpOthersImg from "../../../assets/images/banner_image/help_others.png";
+import tickImg from "../../../assets/images/banner_image/tick.png";
+import warningImg from "../../../assets/images/banner_image/warning.png";
 const BloodRequestMessage = () => {
   // const [showPopup, setShowPopup] = useState(false); // Popup visibility state
   const [showThankYou, setShowThankYou] = useState(false); // Thank you message visibility state
@@ -74,7 +76,7 @@ const BloodRequestMessage = () => {
       toast(
         <Notify
           message="Forward Message Submitted successfully"
-          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+          imgUrl={tickImg}
           progressBarColor="red"
         />
       );
@@ -92,7 +94,7 @@ const BloodRequestMessage = () => {
       toast.error(
         <Notify
           message="An error occurred"
-          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+          imgUrl={warningImg}
           progressBarColor="red"
         />
       );
@@ -107,7 +109,14 @@ const BloodRequestMessage = () => {
       <div className="card mt-4">
         <div className="card-body">
           <div className="row">
-            <div className="mx-auto px-4">
+            <div className="col-md-5">
+              <img
+                src={HelpOthersImg}
+                alt="blood_camp_image"
+                className="w-100"
+              />
+            </div>
+            <div className="col-md-7">
               <h3 className="display-7">
                 Paste the Blood Related Forward Message Here
               </h3>
@@ -120,35 +129,29 @@ const BloodRequestMessage = () => {
               >
                 {({ isSubmitting, touched, errors, resetForm }) => (
                   <Form>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <div className="mb-3">
-                          <label
-                            htmlFor="forward_message"
-                            className="form-label"
-                          >
-                            Paste Forward Message
-                          </label>
-                          <Field
-                            as="textarea"
-                            name="forward_message"
-                            className={`form-control ${
-                              touched.forward_message && errors.forward_message
-                                ? "is-invalid"
-                                : touched.forward_message
-                                ? "is-valid"
-                                : ""
-                            }`}
-                            style={{ height: "150px" }}
-                          />
-                          <ErrorMessage
-                            name="forward_message"
-                            component="div"
-                            className="text-danger"
-                          />
-                        </div>
-                      </div>
+                    <div className="mb-3 pe-4">
+                      <label htmlFor="forward_message" className="form-label">
+                        Paste Forward Message
+                      </label>
+                      <Field
+                        as="textarea"
+                        name="forward_message"
+                        className={`form-control ${
+                          touched.forward_message && errors.forward_message
+                            ? "is-invalid"
+                            : touched.forward_message
+                            ? "is-valid"
+                            : ""
+                        }`}
+                        style={{ height: "150px" }}
+                      />
+                      <ErrorMessage
+                        name="forward_message"
+                        component="div"
+                        className="text-danger"
+                      />
                     </div>
+
                     <button
                       type="submit"
                       className="btn btn-primary mt-3"
@@ -169,21 +172,18 @@ const BloodRequestMessage = () => {
                 )}
               </Formik>
               <ToastContainer />
-
-              {showThankYou && (
-                <div className="alert alert-success mt-4" role="alert">
-                  <h4 className="mb-0">
-                    {" "}
-                    Thank you for submitting the forward message.
-                  </h4>
-                  <h5 className="mt-2">
-                    Your contribution may help save a life!{" "}
-                  </h5>
-                  <h6> Stay tuned and thank you for your support!</h6>
-                </div>
-              )}
             </div>
           </div>
+          {showThankYou && (
+            <div className="alert alert-success mt-4" role="alert">
+              <h4 className="mb-0">
+                {" "}
+                Thank you for submitting the forward message.
+              </h4>
+              <h5 className="mt-2">Your contribution may help save a life! </h5>
+              <h6> Stay tuned and thank you for your support!</h6>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ const RazorpayPayment = () => {
     });
 
     const options = {
-      key: "rzp_test_amctwJdOlQEu2P",
+      key: "rzp_test_vbShwShGjhk3sg",
       amount: order.data.amount,
       currency: "INR",
       name: "Share More",

@@ -21,7 +21,8 @@ const CampScheduleCreate = () => {
     address: "",
     state: "",
     district: "",
-    time: "",
+    start_time: "",
+    end_time: "",
     approx_donor: "",
   };
 
@@ -32,7 +33,8 @@ const CampScheduleCreate = () => {
     address: Yup.string().required("Address is required"),
     state: Yup.string().required("State is required"),
     district: Yup.string().required("District is required"),
-    time: Yup.string().required("Time is required"),
+    start_time: Yup.string().required("Time is required"),
+    end_time: Yup.string().required("Time is required"),
     approx_donor: Yup.number()
       .required("Approx. donor is required")
       .positive("Approx. donor must be a positive number"),
@@ -108,7 +110,8 @@ const CampScheduleCreate = () => {
     try {
       const formattedValues = {
         ...values,
-        time: convertTimeTo12HourFormat(values.time),
+        start_time: convertTimeTo12HourFormat(values.start_time),
+        end_time: convertTimeTo12HourFormat(values.end_time),
       };
       const response = await axios.post(
         "/camp_schedule/create",
@@ -378,25 +381,56 @@ const CampScheduleCreate = () => {
                           </div>
 
                           <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-3">
                               <div className="mb-3">
                                 <div className="form-group">
-                                  <label htmlFor="time" className="form-label">
-                                    Time
+                                  <label
+                                    htmlFor="start_time"
+                                    className="form-label"
+                                  >
+                                    Start Time
                                   </label>
                                   <Field
                                     type="time"
-                                    name="time"
+                                    name="start_time"
                                     className={`form-select ${
-                                      touched.time && errors.time
+                                      touched.start_time && errors.start_time
                                         ? "is-invalid"
-                                        : touched.time
+                                        : touched.start_time
                                         ? "is-valid"
                                         : ""
                                     }`}
                                   />
                                   <ErrorMessage
-                                    name="time"
+                                    name="start_time"
+                                    component="div"
+                                    className="text-danger"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-md-3">
+                              <div className="mb-3">
+                                <div className="form-group">
+                                  <label
+                                    htmlFor="end_time"
+                                    className="form-label"
+                                  >
+                                    End Time
+                                  </label>
+                                  <Field
+                                    type="time"
+                                    name="end_time"
+                                    className={`form-select ${
+                                      touched.end_time && errors.end_time
+                                        ? "is-invalid"
+                                        : touched.end_time
+                                        ? "is-valid"
+                                        : ""
+                                    }`}
+                                  />
+                                  <ErrorMessage
+                                    name="end_time"
                                     component="div"
                                     className="text-danger"
                                   />

@@ -5,6 +5,8 @@ import axios from "../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
+import lookingForImg from "../../../assets/images/banner_image/looking_for.png";
+import mailImg from "../../../assets/images/banner_image/mail.png";
 const LookingForBlood = () => {
   const validationSchema = Yup.object().shape({
     bloodType: Yup.string().required("Blood type is required"),
@@ -185,12 +187,7 @@ const LookingForBlood = () => {
         subject,
         text,
       });
-      toast(
-        <Notify
-          message="Email sent successfully"
-          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
-        />
-      );
+      toast(<Notify message="Email sent successfully" imgUrl={mailImg} />);
       console.log(response);
     } catch (error) {
       console.error("Error sending email: ", error);
@@ -222,8 +219,15 @@ const LookingForBlood = () => {
         <div className="card mt-4">
           <div className="card-body">
             <div className="row">
-              <div className="mx-auto px-4">
-                <h3 className="display-7">Looking for Blood</h3>
+              <div className="col-md-3">
+                <img
+                  src={lookingForImg}
+                  alt="looking_for_blood"
+                  className="w-100"
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="display-7 mt-4">Looking for Blood</h3>
                 <Formik
                   initialValues={{
                     bloodType: "",
@@ -377,93 +381,103 @@ const LookingForBlood = () => {
                         </div>
                       )} */}
                 {/* test */}
+              </div>
+            </div>
 
-                {searched && (
-                  <div className="container mt-5 pt-3">
-                    <div className="row">
-                      {searchResults.data.length === 0 ? (
-                        <div className="col-md-12 mb-4">
-                          <p>No details found.</p>
-                        </div>
-                      ) : (
-                        searchResults.data.map((donor) => (
-                          <div key={donor._id} className="col-md-4 mb-4">
-                            <div className="card">
-                              <div class="profile-card__img">
-                                <img
-                                  src="https://www.freepnglogos.com/uploads/blood-drop-png/blood-drop-blood-donation-drop-vector-graphic-pixabay-9.png"
-                                  alt="Blood Type"
-                                  className="w-100"
-                                />
-                              </div>
-                              <div className="card-body LF_blood_container">
-                                <h5 className="card-title">
-                                  <b>{donor.name}</b>
-                                </h5>
-                                <p className="card-text">
-                                  Email: {donor.email}
-                                </p>
-                                <p className="card-text">
-                                  Contact Number: {donor.contactNumber}
-                                </p>
-                                <p className="card-text">
-                                  Blood Type: <b>{donor.bloodType}</b>
-                                </p>
-                                <button
-                                  className="btn btn-primary mt-2"
-                                  onClick={() =>
-                                    (window.location.href = `tel:${donor.contactNumber}`)
-                                  }
-                                >
-                                  Call
-                                </button>
-                                {/* <button
-                                  className="btn btn-primary mt-2 mx-2"
-                                  onClick={() =>
-                                    handleSendEmail(
-                                      donor.email,
-                                      donor.name,
-                                      donor.bloodType
-                                    )
-                                  }
-                                  disabled={isSubmitting}
-                                >
-                                  {isSubmitting ? "Sending..." : "Email"}
-                                </button> */}
-                                <button
-                                  className="btn btn-primary mt-2 mx-2"
-                                  onClick={() =>
-                                    handleSendEmail(
-                                      donor.email,
-                                      donor.name,
-                                      donor.bloodType,
-                                      donor._id
-                                    )
-                                  }
-                                  disabled={submittingStates[donor._id]}
-                                >
-                                  {submittingStates[donor._id]
-                                    ? "Sending..."
-                                    : "Email"}
-                                </button>
-                                <button
-                                  className="btn btn-primary mt-2 mx-2"
-                                  onClick={() =>
-                                    (window.location.href = `sms:${donor.contactNumber}`)
-                                  }
-                                >
-                                  SMS
-                                </button>
+            {searched && (
+              <>
+                <hr />
+                <div className="container mt-5 pt-3">
+                  <div className="row">
+                    {searchResults.data.length === 0 ? (
+                      <div className="col-md-12 mb-4">
+                        <h5 className="text-center">
+                          😕 Sorry, No Details Found.
+                        </h5>
+                      </div>
+                    ) : (
+                      searchResults.data.map((donor) => (
+                        <div
+                          key={donor._id}
+                          className="col-md-4 col-lg-4 col-12 mb-4"
+                        >
+                          <div className="card">
+                            <div class="profile-card__img">
+                              <img
+                                src="https://www.freepnglogos.com/uploads/blood-drop-png/blood-drop-blood-donation-drop-vector-graphic-pixabay-9.png"
+                                alt="Blood Type"
+                                className="w-100"
+                              />
+                            </div>
+                            <div className="card-body LF_blood_container">
+                              <div className="row">
+                                <div className="col-md-9 col-lg-9 col-12">
+                                  <h5 className="card-title">
+                                    <b>{donor.name}</b>
+                                  </h5>
+                                  <p className="card-text">{donor.email}</p>
+                                  <p className="card-text">
+                                    {donor.contactNumber}
+                                  </p>
+                                  <p className="card-text">
+                                    Blood Type: <b>{donor.bloodType}</b>
+                                  </p>
+                                </div>
+
+                                <div className="col-md-3 p-0 text-center">
+                                  <button
+                                    className="btn p-1"
+                                    onClick={() =>
+                                      (window.location.href = `tel:${donor.contactNumber}`)
+                                    }
+                                  >
+                                    <div className="box_button_icon">
+                                      <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                  </button>
+                                  <button
+                                    className="btn p-1"
+                                    onClick={() =>
+                                      handleSendEmail(
+                                        donor.email,
+                                        donor.name,
+                                        donor.bloodType,
+                                        donor._id
+                                      )
+                                    }
+                                    disabled={submittingStates[donor._id]}
+                                  >
+                                    {submittingStates[donor._id] ? (
+                                      <div className="box_button_icon">
+                                        <i class="fa-solid fa-share fa-beat-fade"></i>
+                                      </div>
+                                    ) : (
+                                      <div className="box_button_icon">
+                                        <i class="fa-solid fa-envelope"></i>
+                                      </div>
+                                    )}
+                                  </button>
+                                  <button
+                                    className="btn p-1"
+                                    onClick={() =>
+                                      (window.location.href = `sms:${donor.contactNumber}`)
+                                    }
+                                  >
+                                    <div className="box_button_icon">
+                                      <i class="fa-solid fa-comment-sms"></i>
+                                    </div>
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        ))
-                      )}
-                    </div>
+                        </div>
+                      ))
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

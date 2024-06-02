@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
 import "./campScheduleData.css";
+import campImg from "../../../assets/images/banner_image/camp_banner.png";
 const PAGE_SIZE = 10; // Number of users per page
 
 const CampSceduleData_list = () => {
@@ -76,7 +77,11 @@ const CampSceduleData_list = () => {
       {/* <Layout /> */}
       {/* <div className="page-wrapper"> */}
       {/* <div className="page-content"> */}
-      <div className="mt-5 pt-5 container">
+      <div className="mt-4" style={{height:"400px"}} >
+        <img src={campImg} alt="blood_camp_image" className="w-100 h-100"/>
+      </div>
+
+      <div className="mt-3 container">
         <div className="card">
           <div className="card-body">
             {/* <div className="container"> */}
@@ -140,7 +145,8 @@ const CampSceduleData_list = () => {
                         <th scope="col">End Date</th>
                         <th scope="col">Organizer</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Time</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
                         <th scope="col">Approx_Donor</th>
                         {/* <th scope="col"> Action</th> */}
                       </tr>
@@ -173,7 +179,8 @@ const CampSceduleData_list = () => {
                           {/* <td>{user.end_date}</td> */}
                           <td>{camp_details.organizer}</td>
                           <td>{camp_details.address}</td>
-                          <td>{camp_details.time}</td>
+                          <td>{camp_details.start_time}</td>
+                          <td>{camp_details.end_time}</td>
                           <td>{camp_details.approx_donor}</td>
                         </tr>
                       ))}

@@ -217,6 +217,12 @@ const Header = () => {
                         Paste Blood Request Message
                       </Link>
                     </li>
+                    {/* bloodforwardmsg */}
+                    <li>
+                      <Link className="dropdown-item" to="/bloodforwardmsg">
+                        Details Blood Request Message
+                      </Link>
+                    </li>
                   </ul>
                 </li>
                 {/* all_history */}
@@ -269,6 +275,7 @@ const Header = () => {
                         >
                           <span className="text-uppercase">
                             {user?.name ? user.name[0] : ""}
+                            {/* {user} */}
                           </span>
                         </button>
 

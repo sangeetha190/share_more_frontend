@@ -9,7 +9,7 @@ import axios from "../../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../../components/Notify/Notify";
-
+import campImg from "../../../../assets/images/banner_image/camp_banner.png";
 const DonorAppointment = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -17,7 +17,7 @@ const DonorAppointment = () => {
   const [searchResults, setSearchResults] = useState({ data: [] });
   const [searched, setSearched] = useState(false);
   const [formValues, setFormValues] = useState(null); // Declare formValues state
-
+  // const [showAlertPopup, setShowAlertPopup] = useState(false); // Thank you message visibility state
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   const isFutureDate = (date) => {
@@ -107,6 +107,7 @@ const DonorAppointment = () => {
     { setSubmitting, setErrors, resetForm }
   ) => {
     console.log(values, "Values.........");
+    // setShowAlertPopup(false);
     // ["email", "sms", "none"],
     try {
       const token = localStorage.getItem("token"); // Retrieve the token from local storage
@@ -182,6 +183,23 @@ const DonorAppointment = () => {
       );
     } catch (error) {
       console.error("Error during form submission:", error);
+      if (error.response && error.response.data && error.response.data.msg) {
+        // alert(error.response.data.msg); // Display the error message from the server
+        // Display a notification to the user
+        toast(
+          <Notify
+            message={error.response.data.msg}
+            imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+            progressBarColor="red"
+          />
+        );
+        // setShowAlertPopup(true);
+      } else {
+        alert(
+          "An unexpected error occurred. Please try again later.",
+          error.response.data.msg
+        );
+      }
     } finally {
       setSearched(true);
       setSearchResults({ data: [] });
@@ -189,53 +207,57 @@ const DonorAppointment = () => {
   };
 
   return (
-    <div className="mt-5 pt-5 container">
-      <div className="card pt-4">
-        <div className="card-body">
-          <h4>Appointment Booking</h4>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            // onSubmit={handleSubmit}
-            onSubmit={(values, actions) => {
-              setFormValues(values); // Update formValues state
-              handleSubmit(values, actions);
-            }}
-          >
-            {({
-              touched,
-              errors,
-              isSubmitting,
-              resetForm,
-              setFieldValue,
-              values,
-            }) => (
-              <Form>
-                <div className="row">
-                  <div className="col-3">
-                    <label htmlFor="appointment" className="form-label">
-                      Appointment Date:
-                    </label>
-                    <Field
-                      type="date"
-                      id="appointment"
-                      name="appointment"
-                      className={`form-control ${
-                        touched.appointment && errors.appointment
-                          ? "is-invalid"
-                          : touched.appointment
-                          ? "is-valid"
-                          : ""
-                      }`}
-                    />
-                    <ErrorMessage
-                      name="appointment"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </div>
+    <>
+      <div className="mt-4" style={{ height: "400px" }}>
+        <img src={campImg} alt="blood_camp_image" className="w-100 h-100" />
+      </div>
+      <div className="mt-5 pt-5 container">
+        <div className="card pt-4">
+          <div className="card-body">
+            <h4>Appointment Booking</h4>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              // onSubmit={handleSubmit}
+              onSubmit={(values, actions) => {
+                setFormValues(values); // Update formValues state
+                handleSubmit(values, actions);
+              }}
+            >
+              {({
+                touched,
+                errors,
+                isSubmitting,
+                resetForm,
+                setFieldValue,
+                values,
+              }) => (
+                <Form>
+                  <div className="row">
+                    <div className="col-3">
+                      <label htmlFor="appointment" className="form-label">
+                        Appointment Date:
+                      </label>
+                      <Field
+                        type="date"
+                        id="appointment"
+                        name="appointment"
+                        className={`form-control ${
+                          touched.appointment && errors.appointment
+                            ? "is-invalid"
+                            : touched.appointment
+                            ? "is-valid"
+                            : ""
+                        }`}
+                      />
+                      <ErrorMessage
+                        name="appointment"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
 
-                  {/* <div className="col-5">
+                    {/* <div className="col-5">
                     <label htmlFor="reminder">Reminder (Optional):</label>
 
                     <div className="form-check">
@@ -297,135 +319,141 @@ const DonorAppointment = () => {
                     </Field>
                  
                   </div> */}
-                  <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="state" className="form-label">
-                        State
+                    <div className="col-md-3">
+                      <div className="mb-3">
+                        <label htmlFor="state" className="form-label">
+                          State
+                        </label>
+                        <Field
+                          as="select"
+                          name="state"
+                          className={`form-control ${
+                            touched.state && errors.state
+                              ? "is-invalid"
+                              : touched.state
+                              ? "is-valid"
+                              : ""
+                          }`}
+                          onChange={(e) => {
+                            const selectedValue = e.target.value;
+                            setFieldValue("state", selectedValue);
+                            setSelectedState(selectedValue);
+                          }}
+                        >
+                          <option value="" disabled>
+                            Select State
+                          </option>
+                          {states.map((state) => (
+                            <option key={state.id} value={state.name}>
+                              {state.name}
+                            </option>
+                          ))}
+                        </Field>
+                        <ErrorMessage
+                          name="state"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-3">
+                      <div className="mb-3">
+                        <label htmlFor="district" className="form-label">
+                          District
+                        </label>
+                        <Field
+                          as="select"
+                          name="district"
+                          className={`form-select ${
+                            touched.district && errors.district
+                              ? "is-invalid"
+                              : touched.district
+                              ? "is-valid"
+                              : ""
+                          }`}
+                        >
+                          <option value="" disabled>
+                            Select District
+                          </option>
+                          {districts.map((district) => (
+                            <option key={district.id} value={district.name}>
+                              {district.name}
+                            </option>
+                          ))}
+                        </Field>
+                        <ErrorMessage
+                          name="district"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-3">
+                      <label htmlFor="reminder" className="form-label">
+                        Select Reminder Method:
                       </label>
                       <Field
                         as="select"
-                        name="state"
+                        name="reminder"
                         className={`form-control ${
-                          touched.state && errors.state
+                          touched.reminder && errors.reminder
                             ? "is-invalid"
-                            : touched.state
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        onChange={(e) => {
-                          const selectedValue = e.target.value;
-                          setFieldValue("state", selectedValue);
-                          setSelectedState(selectedValue);
-                        }}
-                      >
-                        <option value="" disabled>
-                          Select State
-                        </option>
-                        {states.map((state) => (
-                          <option key={state.id} value={state.name}>
-                            {state.name}
-                          </option>
-                        ))}
-                      </Field>
-                      <ErrorMessage
-                        name="state"
-                        component="div"
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="district" className="form-label">
-                        District
-                      </label>
-                      <Field
-                        as="select"
-                        name="district"
-                        className={`form-select ${
-                          touched.district && errors.district
-                            ? "is-invalid"
-                            : touched.district
+                            : touched.reminder
                             ? "is-valid"
                             : ""
                         }`}
                       >
                         <option value="" disabled>
-                          Select District
+                          Select...
                         </option>
-                        {districts.map((district) => (
-                          <option key={district.id} value={district.name}>
-                            {district.name}
-                          </option>
-                        ))}
+                        <option value="none">None</option>
+                        <option value="email">Email</option>
+                        <option value="sms">SMS</option>
                       </Field>
                       <ErrorMessage
-                        name="district"
+                        name="reminder"
                         component="div"
                         className="text-danger"
                       />
                     </div>
                   </div>
-                  <div className="col-3">
-                    <label htmlFor="reminder" className="form-label">
-                      Select Reminder Method:
-                    </label>
-                    <Field
-                      as="select"
-                      name="reminder"
-                      className={`form-control ${
-                        touched.reminder && errors.reminder
-                          ? "is-invalid"
-                          : touched.reminder
-                          ? "is-valid"
-                          : ""
-                      }`}
-                    >
-                      <option value="" disabled>
-                        Select...
-                      </option>
-                      <option value="none">None</option>
-                      <option value="email">Email</option>
-                      <option value="sms">SMS</option>
-                    </Field>
-                    <ErrorMessage
-                      name="reminder"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </div>
-                </div>
-                {/* <button
+                  {/* <button
                   type="submit"
                   className="btn btn-primary mt-3"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </button> */}
-                <button
-                  className="btn btn-primary mt-3"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : "Search"}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
-                  onClick={() => {
-                    resetForm();
-                    setSearched(false);
-                  }}
-                >
-                  Clear
-                </button>
-              </Form>
-            )}
-          </Formik>
-          {/* Notify container */}
-          <ToastContainer />
+                  <button
+                    className="btn btn-primary mt-3"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting..." : "Search"}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
+                    onClick={() => {
+                      resetForm();
+                      setSearched(false);
+                    }}
+                  >
+                    Clear
+                  </button>
+                </Form>
+              )}
+            </Formik>
+            {/* Notify container */}
+            <ToastContainer />
 
-          {/* <div className="table-responsive pb-2">
+            {/* {showAlertPopup && (
+              <div className="alert alert-success mt-4" role="alert">
+                You Have an appoinment already....
+              </div>
+            )} */}
+            {/* test */}
+            {/* <div className="table-responsive pb-2">
             <table className="table table-bordered table-hover ">
               <thead className="thead-dark red_bg text-white">
                 <tr>
@@ -447,57 +475,58 @@ const DonorAppointment = () => {
               </tbody>
             </table>
           </div> */}
-          {/* Searched Data */}
-          {searched && (
-            <div className="container pt-4">
-              <div className="row">
-                <h5 className="px-2">Hospital and Blood Bank Details</h5>
-                <div className="table-responsive pb-2">
-                  <table className="table table-bordered table-hover">
-                    <thead className="thead-dark red_bg text-white">
-                      <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Place</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {searchResults.data.length === 0 ? (
+            {/* Searched Data */}
+            {searched && (
+              <div className="container pt-4">
+                <div className="row">
+                  <h5 className="px-2">Hospital and Blood Bank Details</h5>
+                  <div className="table-responsive pb-2">
+                    <table className="table table-bordered table-hover">
+                      <thead className="thead-dark red_bg text-white">
                         <tr>
-                          <td colSpan="4" className="text-center">
-                            No details found.
-                          </td>
+                          <th scope="col">Id</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Place</th>
+                          <th scope="col">Action</th>
                         </tr>
-                      ) : (
-                        searchResults.data.map((data, index) => (
-                          <tr key={index}>
-                            <th scope="row">{index + 1}</th>
-                            <td className="text-capitalize">{data.name}</td>
-                            <td>{data.state}</td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-success me-2 mx-2"
-                                onClick={() => {
-                                  BookingAppointment(formValues, data._id); // Pass the form values and donor object to the function
-                                }}
-                              >
-                                Book Appoinment
-                              </button>
+                      </thead>
+                      <tbody>
+                        {searchResults.data.length === 0 ? (
+                          <tr>
+                            <td colSpan="4" className="text-center">
+                              No details found.
                             </td>
                           </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
+                        ) : (
+                          searchResults.data.map((data, index) => (
+                            <tr key={index}>
+                              <th scope="row">{index + 1}</th>
+                              <td className="text-capitalize">{data.name}</td>
+                              <td>{data.state}</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-success me-2 mx-2"
+                                  onClick={() => {
+                                    BookingAppointment(formValues, data._id); // Pass the form values and donor object to the function
+                                  }}
+                                >
+                                  Book Appoinment
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

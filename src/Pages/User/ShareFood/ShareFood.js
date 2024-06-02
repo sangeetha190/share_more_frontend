@@ -5,6 +5,9 @@ import axios from "../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
+import foodImg from "../../../assets/images/banner_image/food_donation.png";
+import food_icon from "../../../assets/images/banner_image/food_icon.png";
+// Import Pagination component
 
 const ShareFood = () => {
   const [states, setStates] = useState([]);
@@ -180,7 +183,7 @@ const ShareFood = () => {
       toast(
         <Notify
           message="Your appointment has been booked successfully."
-          imgUrl="https://cdn3d.iconscout.com/3d/premium/thumb/blood-drop-5075241-4235159.png?f=webp"
+          imgUrl={food_icon}
           progressBarColor="red"
         />
       );
@@ -196,221 +199,236 @@ const ShareFood = () => {
     <div className="mt-5 pt-5 container">
       <div className="card pt-4">
         <div className="card-body">
-          <h4>Share Your Day</h4>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            // onSubmit={handleSubmit}
-            onSubmit={(values, actions) => {
-              setFormValues(values); // Update formValues state
-              handleSubmit(values, actions);
-            }}
-          >
-            {({
-              touched,
-              errors,
-              isSubmitting,
-              resetForm,
-              setFieldValue,
-              values,
-            }) => (
-              <Form>
-                <div className="row">
-                  <div className="col-3">
-                    <label htmlFor="appointment" className="form-label">
-                      Appointment Date:
-                    </label>
-                    <Field
-                      type="date"
-                      id="appointment"
-                      name="appointment"
-                      className={`form-control ${
-                        touched.appointment && errors.appointment
-                          ? "is-invalid"
-                          : touched.appointment
-                          ? "is-valid"
-                          : ""
-                      }`}
-                    />
-                    <ErrorMessage
-                      name="appointment"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="state" className="form-label">
-                        State
-                      </label>
-                      <Field
-                        as="select"
-                        name="state"
-                        className={`form-control ${
-                          touched.state && errors.state
-                            ? "is-invalid"
-                            : touched.state
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        onChange={(e) => {
-                          const selectedValue = e.target.value;
-                          setFieldValue("state", selectedValue);
-                          setSelectedState(selectedValue);
-                        }}
-                      >
-                        <option value="" disabled>
-                          Select State
-                        </option>
-                        {states.map((state) => (
-                          <option key={state.id} value={state.name}>
-                            {state.name}
-                          </option>
-                        ))}
-                      </Field>
-                      <ErrorMessage
-                        name="state"
-                        component="div"
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <div className="mb-3">
-                      <label htmlFor="district" className="form-label">
-                        District
-                      </label>
-                      <Field
-                        as="select"
-                        name="district"
-                        className={`form-select ${
-                          touched.district && errors.district
-                            ? "is-invalid"
-                            : touched.district
-                            ? "is-valid"
-                            : ""
-                        }`}
-                      >
-                        <option value="" disabled>
-                          Select District
-                        </option>
-                        {districts.map((district) => (
-                          <option key={district.id} value={district.name}>
-                            {district.name}
-                          </option>
-                        ))}
-                      </Field>
-                      <ErrorMessage
-                        name="district"
-                        component="div"
-                        className="text-danger"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-3">
-                    <label htmlFor="reminder" className="form-label">
-                      Select Method:
-                    </label>
-                    <Field
-                      as="select"
-                      name="reminder"
-                      className={`form-control ${
-                        touched.reminder && errors.reminder
-                          ? "is-invalid"
-                          : touched.reminder
-                          ? "is-valid"
-                          : ""
-                      }`}
-                    >
-                      <option value="" disabled>
-                        Select...
-                      </option>
-                      <option value="collect">Collect</option>
-                      <option value="visit">Visit</option>
-                    </Field>
-                    <ErrorMessage
-                      name="reminder"
-                      component="div"
-                      className="text-danger"
-                    />
-                  </div>
-                  <div className="row">
-                    <div className="col-3">
-                      <div className="mb-3">
-                        <label htmlFor="contactNumber" className="form-label">
-                          Contact Number
+          <div className="row">
+            <div className="col-md-4">
+              <div className="" style={{ height: "auto" }}>
+                <img src={foodImg} alt="ttest" className="w-100" />
+              </div>
+            </div>
+            <div className="col-md-8">
+              <h4>
+                <i class="fa-solid fa-bowl-rice"></i> Share Your Day
+              </h4>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                // onSubmit={handleSubmit}
+                onSubmit={(values, actions) => {
+                  setFormValues(values); // Update formValues state
+                  handleSubmit(values, actions);
+                }}
+              >
+                {({
+                  touched,
+                  errors,
+                  isSubmitting,
+                  resetForm,
+                  setFieldValue,
+                  values,
+                }) => (
+                  <Form>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label htmlFor="appointment" className="form-label">
+                          Appointment Date:
                         </label>
                         <Field
-                          type="text"
-                          name="contactNumber"
+                          type="date"
+                          id="appointment"
+                          name="appointment"
                           className={`form-control ${
-                            touched.contactNumber && errors.contactNumber
+                            touched.appointment && errors.appointment
                               ? "is-invalid"
-                              : touched.contactNumber
+                              : touched.appointment
                               ? "is-valid"
                               : ""
                           }`}
                         />
                         <ErrorMessage
-                          name="contactNumber"
+                          name="appointment"
                           component="div"
                           className="text-danger"
                         />
                       </div>
-                    </div>
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label htmlFor="state" className="form-label">
+                            State
+                          </label>
+                          <Field
+                            as="select"
+                            name="state"
+                            className={`form-control ${
+                              touched.state && errors.state
+                                ? "is-invalid"
+                                : touched.state
+                                ? "is-valid"
+                                : ""
+                            }`}
+                            onChange={(e) => {
+                              const selectedValue = e.target.value;
+                              setFieldValue("state", selectedValue);
+                              setSelectedState(selectedValue);
+                            }}
+                          >
+                            <option value="" disabled>
+                              Select State
+                            </option>
+                            {states.map((state) => (
+                              <option key={state.id} value={state.name}>
+                                {state.name}
+                              </option>
+                            ))}
+                          </Field>
+                          <ErrorMessage
+                            name="state"
+                            component="div"
+                            className="text-danger"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="mb-3">
+                          <label htmlFor="district" className="form-label">
+                            District
+                          </label>
+                          <Field
+                            as="select"
+                            name="district"
+                            className={`form-select ${
+                              touched.district && errors.district
+                                ? "is-invalid"
+                                : touched.district
+                                ? "is-valid"
+                                : ""
+                            }`}
+                          >
+                            <option value="" disabled>
+                              Select District
+                            </option>
+                            {districts.map((district) => (
+                              <option key={district.id} value={district.name}>
+                                {district.name}
+                              </option>
+                            ))}
+                          </Field>
+                          <ErrorMessage
+                            name="district"
+                            component="div"
+                            className="text-danger"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <label htmlFor="reminder" className="form-label">
+                          Select Method:
+                        </label>
+                        <Field
+                          as="select"
+                          name="reminder"
+                          className={`form-control ${
+                            touched.reminder && errors.reminder
+                              ? "is-invalid"
+                              : touched.reminder
+                              ? "is-valid"
+                              : ""
+                          }`}
+                        >
+                          <option value="" disabled>
+                            Select...
+                          </option>
+                          <option value="collect">Collect</option>
+                          <option value="visit">Visit</option>
+                        </Field>
+                        <ErrorMessage
+                          name="reminder"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="mb-3">
+                            <label
+                              htmlFor="contactNumber"
+                              className="form-label"
+                            >
+                              Contact Number
+                            </label>
+                            <Field
+                              type="text"
+                              name="contactNumber"
+                              className={`form-control ${
+                                touched.contactNumber && errors.contactNumber
+                                  ? "is-invalid"
+                                  : touched.contactNumber
+                                  ? "is-valid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              name="contactNumber"
+                              component="div"
+                              className="text-danger"
+                            />
+                          </div>
+                        </div>
 
-                    <div className="col-3">
-                      <div className="mb-3">
-                        <label htmlFor="max_member" className="form-label">
-                          Max Memeber
-                        </label>
-                        <Field
-                          type="text"
-                          name="max_member"
-                          className={`form-control ${
-                            touched.max_member && errors.max_member
-                              ? "is-invalid"
-                              : touched.max_member
-                              ? "is-valid"
-                              : ""
-                          }`}
-                        />
-                        <ErrorMessage
-                          name="max_member"
-                          component="div"
-                          className="text-danger"
-                        />
+                        <div className="col-md-6">
+                          <div className="mb-3">
+                            <label htmlFor="max_member" className="form-label">
+                              Max Memeber
+                            </label>
+                            <Field
+                              type="text"
+                              name="max_member"
+                              className={`form-control ${
+                                touched.max_member && errors.max_member
+                                  ? "is-invalid"
+                                  : touched.max_member
+                                  ? "is-valid"
+                                  : ""
+                              }`}
+                            />
+                            <ErrorMessage
+                              name="max_member"
+                              component="div"
+                              className="text-danger"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                {/* <button
+                    {/* <button
                   type="submit"
                   className="btn btn-primary mt-3"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Submitting..." : "Submit"}
                 </button> */}
-                <button
-                  className="btn btn-primary mt-3"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : "Search"}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
-                  onClick={() => {
-                    resetForm();
-                    setSearched(false);
-                  }}
-                >
-                  Clear
-                </button>
-              </Form>
-            )}
-          </Formik>
+                    <button
+                      className="btn btn-primary mt-3"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Submitting..." : "Search"}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
+                      onClick={() => {
+                        resetForm();
+                        setSearched(false);
+                      }}
+                    >
+                      Clear
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
+
           {/* Notify container */}
           <ToastContainer />
 
@@ -443,6 +461,7 @@ const ShareFood = () => {
                 <h5 className="px-2">Charity Details</h5>
                 <div className="table-responsive pb-2">
                   <table className="table table-bordered table-hover">
+                    {/* background-color: #2d684c; */}
                     <thead className="thead-dark red_bg text-white">
                       <tr>
                         <th scope="col">Id</th>

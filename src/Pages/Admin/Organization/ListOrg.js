@@ -3,14 +3,14 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
 const PAGE_SIZE = 10; // Number of users per page
 
 const ListOrg = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,22 +64,22 @@ const ListOrg = () => {
     }
   });
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this donor?")) {
-      axios
-        .delete(`/donor/delete/${id}`)
-        .then((response) => {
-          console.log(response.data.message);
-          // Filter out the deleted donor from the donors array
-          const updatedDonors = users.filter((donor) => donor._id !== id);
-          // Update the donors state with the updated list
-          setUsers(updatedDonors);
-        })
-        .catch((error) => {
-          console.error("There was an error deleting the donor!", error);
-        });
-    }
-  };
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure you want to delete this donor?")) {
+  //     axios
+  //       .delete(`/donor/delete/${id}`)
+  //       .then((response) => {
+  //         console.log(response.data.message);
+  //         // Filter out the deleted donor from the donors array
+  //         const updatedDonors = users.filter((donor) => donor._id !== id);
+  //         // Update the donors state with the updated list
+  //         setUsers(updatedDonors);
+  //       })
+  //       .catch((error) => {
+  //         console.error("There was an error deleting the donor!", error);
+  //       });
+  //   }
+  // };
   return (
     <div>
       <Layout />
@@ -143,7 +143,7 @@ const ListOrg = () => {
                       <th scope="col">State</th>
                       <th scope="col">District</th>
                       <th scope="col">Type</th>
-                      <th scope="col">Action</th>
+                      {/* <th scope="col">Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -154,7 +154,7 @@ const ListOrg = () => {
                         <td>{org_details.state}</td>
                         <td>{org_details.district}</td>
                         <td>{org_details.type}</td>
-                        <td>
+                        {/* <td>
                           {userStatus.role === "admin" && (
                             <>
                               <button
@@ -164,35 +164,9 @@ const ListOrg = () => {
                                   navigate(`/edit-org/${org_details._id}`)
                                 }
                               >
-                                {/* /edit/:id */}
                                 Edit
                               </button>
-                              {/* <button
-                                type="button"
-                                className="btn btn-danger btn-sm"
-                                onClick={() => {
-                                  if (
-                                    window.confirm(
-                                      "Are you sure you want to delete this donor?"
-                                    )
-                                  ) {
-                                    axios
-                                      .delete(`donor/delete/${user._id}`)
-                                      .then((response) => {
-                                        console.log(response.data.message);
-                                        navigate("/all_donor"); // Navigate back to the list of donors
-                                      })
-                                      .catch((error) => {
-                                        console.error(
-                                          "There was an error deleting the donor!",
-                                          error
-                                        );
-                                      });
-                                  }
-                                }}
-                              >
-                                Delete
-                              </button> */}
+                            
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm"
@@ -215,7 +189,7 @@ const ListOrg = () => {
                               </button>
                             </>
                           )}
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>

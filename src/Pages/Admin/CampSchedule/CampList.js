@@ -3,14 +3,14 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
 const PAGE_SIZE = 10; // Number of users per page
 
 const CampList = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,22 +70,22 @@ const CampList = () => {
     }
   });
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this donor?")) {
-      axios
-        .delete(`/donor/delete/${id}`)
-        .then((response) => {
-          console.log(response.data.message);
-          // Filter out the deleted donor from the donors array
-          const updatedDonors = users.filter((donor) => donor._id !== id);
-          // Update the donors state with the updated list
-          setUsers(updatedDonors);
-        })
-        .catch((error) => {
-          console.error("There was an error deleting the donor!", error);
-        });
-    }
-  };
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure you want to delete this donor?")) {
+  //     axios
+  //       .delete(`/donor/delete/${id}`)
+  //       .then((response) => {
+  //         console.log(response.data.message);
+  //         // Filter out the deleted donor from the donors array
+  //         const updatedDonors = users.filter((donor) => donor._id !== id);
+  //         // Update the donors state with the updated list
+  //         setUsers(updatedDonors);
+  //       })
+  //       .catch((error) => {
+  //         console.error("There was an error deleting the donor!", error);
+  //       });
+  //   }
+  // };
   return (
     <div>
       <Layout />
@@ -149,9 +149,10 @@ const CampList = () => {
                       <th scope="col">End Date</th>
                       <th scope="col">Organizer</th>
                       <th scope="col">Address</th>
-                      <th scope="col">Time</th>
-                      <th scope="col">Approx_Donor</th>
-                      <th scope="col"> Action</th>
+                      <th scope="col">Start Time</th>
+                      <th scope="col">End Time</th>
+                      <th scope="col">Max_Donor</th>
+                      {/* <th scope="col"> Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -183,9 +184,10 @@ const CampList = () => {
                         {/* <td>{user.end_date}</td> */}
                         <td>{camp_details.organizer}</td>
                         <td>{camp_details.address}</td>
-                        <td>{camp_details.time}</td>
+                        <td>{camp_details.start_time}</td>
+                        <td>{camp_details.end_time}</td>
                         <td>{camp_details.approx_donor}</td>
-                        <td>
+                        {/* <td>
                           {userStatus.role === "admin" && (
                             <>
                               <button
@@ -197,32 +199,7 @@ const CampList = () => {
                               >
                                 Edit
                               </button>
-                              {/* <button
-                                type="button"
-                                className="btn btn-danger btn-sm"
-                                onClick={() => {
-                                  if (
-                                    window.confirm(
-                                      "Are you sure you want to delete this donor?"
-                                    )
-                                  ) {
-                                    axios
-                                      .delete(`donor/delete/${user._id}`)
-                                      .then((response) => {
-                                        console.log(response.data.message);
-                                        navigate("/all_donor"); // Navigate back to the list of donors
-                                      })
-                                      .catch((error) => {
-                                        console.error(
-                                          "There was an error deleting the donor!",
-                                          error
-                                        );
-                                      });
-                                  }
-                                }}
-                              >
-                                Delete
-                              </button> */}
+
                               <button
                                 type="button"
                                 className="btn btn-danger btn-sm"
@@ -245,7 +222,7 @@ const CampList = () => {
                               </button>
                             </>
                           )}
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
