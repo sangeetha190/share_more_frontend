@@ -153,6 +153,12 @@ const Layout = () => {
                     <i className="bx bx-radio-circle"></i>Appointment List
                   </Link>
                 </li>
+                {/* unique_id */}
+                <li>
+                  <Link to="/unique_id" className="logo">
+                    <i className="bx bx-radio-circle"></i>Unique Id
+                  </Link>
+                </li>
               </ul>
             </li>
 

@@ -3,12 +3,12 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const PAGE_SIZE = 10; // Number of users per page
 
 const AppoinmentList = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,22 +44,22 @@ const AppoinmentList = () => {
     }
   });
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this donor?")) {
-      axios
-        .delete(`/donor/delete/${id}`)
-        .then((response) => {
-          console.log(response.data.message);
-          // Filter out the deleted donor from the donors array
-          const updatedDonors = users.filter((donor) => donor._id !== id);
-          // Update the donors state with the updated list
-          setUsers(updatedDonors);
-        })
-        .catch((error) => {
-          console.error("There was an error deleting the donor!", error);
-        });
-    }
-  };
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure you want to delete this donor?")) {
+  //     axios
+  //       .delete(`/donor/delete/${id}`)
+  //       .then((response) => {
+  //         console.log(response.data.message);
+  //         // Filter out the deleted donor from the donors array
+  //         const updatedDonors = users.filter((donor) => donor._id !== id);
+  //         // Update the donors state with the updated list
+  //         setUsers(updatedDonors);
+  //       })
+  //       .catch((error) => {
+  //         console.error("There was an error deleting the donor!", error);
+  //       });
+  //   }
+  // };
   return (
     <div>
       <Layout />
@@ -125,7 +125,7 @@ const AppoinmentList = () => {
                       <th scope="col">Created At</th>
                       <th scope="col">Format</th>
                       <th scope="col">contactNumber</th>
-                      <th scope="col"> Action</th>
+                      {/* <th scope="col"> Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -135,12 +135,25 @@ const AppoinmentList = () => {
                         <td>
                           {new Date(user.appointment_date).toLocaleDateString()}
                         </td>
-                        <td>{user.status}</td>
+                        {/* <td>{user.status}</td> */}
+                        <td className="text-capitalize">
+                          <span
+                            className={`${
+                              user.status === "pending"
+                                ? "pending_bg"
+                                : user.status === "done"
+                                ? "success_bg"
+                                : ""
+                            }`}
+                          >
+                            {user.status}
+                          </span>
+                        </td>
                         <td>{user.unique_id}</td>
                         <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                         <td>{user.reminder_method}</td>
                         <td>{user.donor_id.contactNumber}</td>
-                        <td>
+                        {/* <td>
                           {userStatus.role === "admin" && (
                             <>
                               <button
@@ -175,7 +188,7 @@ const AppoinmentList = () => {
                               </button>
                             </>
                           )}
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>

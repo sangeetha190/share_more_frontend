@@ -22,7 +22,7 @@ const Team_Register = () => {
   });
   const [errorMessage, setErrorMessage] = useState(""); // State variable for error message
   const [successMessage, setSuccessMessage] = useState("");
-//   const dispatch = useDispatch(); // Import useDispatch hook
+  //   const dispatch = useDispatch(); // Import useDispatch hook
   const navigate = useNavigate(); // Import useNavigate hook
 
   const handleInputChange = (e) => {
@@ -50,7 +50,7 @@ const Team_Register = () => {
 
     // Validate password
     if (
-      !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+      !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
         formData.password
       )
     ) {
@@ -73,6 +73,7 @@ const Team_Register = () => {
       });
       console.log(response, ".......");
       setSuccessMessage(response.data.msg);
+      localStorage.setItem("userCreated", "true"); // Set the flag
       navigate("/all_users");
     } catch (error) {
       if (error.response && error.response.status === 400) {

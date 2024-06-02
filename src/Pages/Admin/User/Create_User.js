@@ -13,7 +13,7 @@ const Create_User = () => {
     contactNumber: "",
   });
   const [errorMessage, setErrorMessage] = useState(""); // State variable for error message
-//   const dispatch = useDispatch(); // Import useDispatch hook
+  //   const dispatch = useDispatch(); // Import useDispatch hook
   const navigate = useNavigate(); // Import useNavigate hook
 
   const handleInputChange = (e) => {
@@ -41,7 +41,7 @@ const Create_User = () => {
 
     // Validate password
     if (
-      !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+      !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(
         formData.password
       )
     ) {
@@ -51,10 +51,11 @@ const Create_User = () => {
       return;
     }
     try {
-        const user_response = await axios.post(`/user/signup`, formData);
-        console.log("user_response", user_response);
+      const user_response = await axios.post(`/user/signup`, formData);
+      console.log("user_response", user_response);
       //   localStorage.setItem("token", user_response.data.token);
       //   dispatch(handleLogin(user_response.data.token));
+      localStorage.setItem("userCreated", "true"); // Set the flag
       navigate("/all_users");
     } catch (error) {
       if (error.response && error.response.status === 401) {

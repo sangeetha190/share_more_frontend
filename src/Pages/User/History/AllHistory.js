@@ -355,8 +355,8 @@ const AllHistory = () => {
                                 <th scope="col">#</th>
                                 <th scope="col">User Name</th>
                                 <th scope="col">Appointment Date</th>
-                                <th scope="col">Hosptial Name</th>
-                                <th scope="col">Place</th>
+                                {/* <th scope="col">Hosptial Name</th> */}
+                                {/* <th scope="col">Place</th> */}
                                 <th scope="col">Unique_ID</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Reminder Method</th>
@@ -382,19 +382,19 @@ const AllHistory = () => {
                                       <td>
                                         {formatDate(data.appointment_date)}
                                       </td>
-                                      <td className="text-capitalize">
+                                      {/* <td className="text-capitalize">
                                         {data.hosptial_blood_bank_id.name}
                                       </td>
                                       <td>
                                         {data.hosptial_blood_bank_id.district}
-                                      </td>
+                                      </td> */}
                                       <td>{data.unique_id}</td>
                                       <td className="text-capitalize">
                                         <span
                                           className={`${
                                             data.status === "pending"
                                               ? "pending_bg"
-                                              : data.status === "completed"
+                                              : data.status === "done"
                                               ? "success_bg"
                                               : ""
                                           }`}

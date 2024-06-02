@@ -3,7 +3,9 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { ToastContainer, toast } from "react-toastify";
+import Notify from "../../../components/Notify/Notify";
+import HelpOthersImg from "../../../assets/images/banner_image/user_icon.png";
 const PAGE_SIZE = 10; // Number of users per page
 
 const All_Users = () => {
@@ -11,6 +13,14 @@ const All_Users = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    const userCreated = localStorage.getItem("userCreated");
+    if (userCreated) {
+      // toast.success("User created successfully");
+      toast(<Notify message="Created successfully" imgUrl={HelpOthersImg} />);
+      localStorage.removeItem("userCreated"); // Remove the flag after showing the notification
+    }
+  }, []);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -102,7 +112,7 @@ const All_Users = () => {
                       <th scope="col">Email</th>
                       <th scope="col">Phone</th>
                       <th scope="col">Role</th>
-                      <th scope="col"> Action</th>
+                      {/* <th scope="col"> Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -113,7 +123,7 @@ const All_Users = () => {
                         <td>{user.email}</td>
                         <td>{user.contactNumber}</td>
                         <td>{user.role}</td>
-                        <td>
+                        {/* <td>
                           {userStatus.role === "admin" && (
                             <>
                               <button
@@ -140,11 +150,12 @@ const All_Users = () => {
                               </button>
                             </>
                           )}
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                <ToastContainer />
               </div>
             </div>
           </div>

@@ -3,13 +3,14 @@ import "../../../../assets/css/loginandregister.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "../../../../axios";
-import { handleLogin } from "../../../../slices/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { handleLogin } from "../../../../slices/userSlice";
+
 const DonorRegister = () => {
-  // const user_stauts = useSelector(getUser);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -34,8 +35,6 @@ const DonorRegister = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedState, setSelectedState] = useState("");
-  // const [searchResults, setSearchResults] = useState({ data: [] });
-  // const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -95,7 +94,7 @@ const DonorRegister = () => {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const donor_response = await axios.post(`/donor/signup`, {
+      const donor_response = await axios.post(`/donor/signup_otp`, {
         name: values.name,
         email: values.email,
         password: values.password,
@@ -105,14 +104,14 @@ const DonorRegister = () => {
         state: values.state,
         district: values.district,
         bloodType: values.bloodType,
+        marriedStatus: values.marriedStatus,
       });
 
-      console.log(donor_response.data.token);
-
-      localStorage.setItem("token", donor_response.data.token);
-      dispatch(handleLogin(donor_response.data.token));
-
-      navigate("/");
+      if (donor_response.data.message === "OTP sent to your email") {
+        console.log("Entered...... OTP");
+        navigate("/verify-otp", { state: { email: values.email } });
+      }
+      console.log(donor_response.data);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         if (error.response.data.message === "Email already exists") {
@@ -128,6 +127,7 @@ const DonorRegister = () => {
         setErrors({ password: "An error occurred. Please try again later." });
       }
     }
+    setSubmitting(false);
   };
 
   return (
@@ -135,22 +135,18 @@ const DonorRegister = () => {
       <div className="loginbox_container">
         <div className="container-fluid">
           <div className="row no-gutter">
-            {/* <!-- The image half --> */}
+            {/* The image half */}
             <div className="col-md-4 d-none d-md-flex login_image p-0 pt-5 mt-3">
               <img src="../images/donars.jpg" alt="test" width="100%" />
             </div>
 
-            {/* <!-- The content half --> */}
-            <div className="col-md-8  bg-light login_form_box">
-              <div className="login  py-5">
-                {/* <!-- Demo content--> */}
+            {/* The content half */}
+            <div className="col-md-8 bg-light login_form_box">
+              <div className="login py-5">
                 <div className="container">
                   <div className="row">
-                    <div className=" mx-auto px-4">
+                    <div className="mx-auto px-4">
                       <h3 className="display-7">Donor Registration</h3>
-                      {/* <p className="text-muted mb-4">
-                        Create a login split page using Bootstrap 4.
-                      </p> */}
                       <Formik
                         initialValues={{
                           name: "",
@@ -493,13 +489,6 @@ const DonorRegister = () => {
                               </div>
                             </div>
 
-                            {/* <button
-                              type="submit"
-                              className="btn btn-primary mt-2"
-                              disabled={isSubmitting || !isValid}
-                            >
-                              {isSubmitting ? "Submitting..." : "Submit"}
-                            </button> */}
                             <button
                               type="submit"
                               className="btn btn-primary mt-2"
@@ -507,7 +496,6 @@ const DonorRegister = () => {
                             >
                               {isSubmitting ? "Submitting..." : "Submit"}
                             </button>
-                            {/* Clear button */}
                             <button
                               type="button"
                               className="btn btn-secondary mt-2 me-2 mx-2"

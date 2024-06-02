@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
-
+import axios from "../../../axios";
 const Dashboard = () => {
   const [formattedDate, setFormattedDate] = useState("");
+  const [userCount, setuserCount] = useState("");
+  const [DonorCount, setDonorCount] = useState("");
+  const [totalDonations, setTotalDonations] = useState("");
+  const [totalCamps, setTotalCamps] = useState("");
 
   useEffect(() => {
     const today = new Date();
@@ -10,7 +14,55 @@ const Dashboard = () => {
     const formattedDate = today.toLocaleDateString("en-US", options);
     setFormattedDate(`Today (${formattedDate})`);
   }, []); // Empty dependency array to run the effect only once when the component mounts
+  // user/totalUsers
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("/user/totalUsers");
+        setuserCount(response.data.totalUsers);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
+  // donor/api/totalDonors
+  useEffect(() => {
+    const fetchDonors = async () => {
+      try {
+        const response = await axios.get("donor/api/totalDonors");
+        setDonorCount(response.data.totalDonors);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchDonors();
+  }, []);
+  // razorpay_method/api/totalDonations
+  useEffect(() => {
+    const fetchDonors = async () => {
+      try {
+        const response = await axios.get("razorpay_method/api/totalDonations");
+        setTotalDonations(response.data.totalDonations);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchDonors();
+  }, []);
+  // camp_schedule/api/totalCamps
+  useEffect(() => {
+    const fetchDonors = async () => {
+      try {
+        const response = await axios.get("camp_schedule/api/totalCamps");
+        setTotalCamps(response.data.totalCamps);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchDonors();
+  }, []);
   return (
     <div>
       <Layout />
@@ -45,7 +97,7 @@ const Dashboard = () => {
                   <div className="d-flex align-items-center">
                     <div>
                       <p className="mb-0 text-secondary">Total Users</p>
-                      <h4 className="my-1 text-info">4805</h4>
+                      <h4 className="my-1 text-info">{userCount}</h4>
                       {/* <p className="mb-0 font-13">+2.5% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-blues text-white ms-auto">
@@ -60,8 +112,8 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Total Support Team</p>
-                      <h4 className="my-1 text-danger">100+</h4>
+                      <p className="mb-0 text-secondary">Total blood Donors</p>
+                      <h4 className="my-1 text-danger">{DonorCount}</h4>
                       {/* <p className="mb-0 font-13">+5.4% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto">
@@ -76,8 +128,8 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Total blood Donor</p>
-                      <h4 className="my-1 text-success">300</h4>
+                      <p className="mb-0 text-secondary">Total Camps</p>
+                      <h4 className="my-1 text-success">{totalCamps}</h4>
                       {/* <p className="mb-0 font-13">-4.5% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
@@ -92,8 +144,10 @@ const Dashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center">
                     <div>
-                      <p className="mb-0 text-secondary">Total Camps</p>
-                      <h4 className="my-1 text-warning">200</h4>
+                      <p className="mb-0 text-secondary">
+                        Total Donation Count
+                      </p>
+                      <h4 className="my-1 text-warning">{totalDonations}</h4>
                       {/* <p className="mb-0 font-13">+8.4% from last week</p> */}
                     </div>
                     <div className="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto">

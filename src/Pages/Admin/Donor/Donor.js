@@ -3,16 +3,26 @@ import Layout from "../Layout/Layout";
 import axios from "../../../axios";
 import { getUser, handleLogin } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
+// import { useNavigate } from "react-router-dom";
+import UserImg from "../../../assets/images/banner_image/user_icon.png";
+import { ToastContainer, toast } from "react-toastify";
+import Notify from "../../../components/Notify/Notify";
 const PAGE_SIZE = 10; // Number of users per page
 
 const Donor = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userStatus = useSelector(getUser);
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   // const [donors, setDonors] = useState([]);
+  useEffect(() => {
+    const userCreated = localStorage.getItem("userCreated");
+    if (userCreated) {
+      // toast.success("User created successfully");
+      toast(<Notify message="Created successfully" imgUrl={UserImg} />);
+      localStorage.removeItem("userCreated"); // Remove the flag after showing the notification
+    }
+  }, []);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -43,21 +53,26 @@ const Donor = () => {
     }
   });
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this donor?")) {
-      axios
-        .delete(`/donor/delete/${id}`)
-        .then((response) => {
-          console.log(response.data.message);
-          // Filter out the deleted donor from the donors array
-          const updatedDonors = users.filter((donor) => donor._id !== id);
-          // Update the donors state with the updated list
-          setUsers(updatedDonors);
-        })
-        .catch((error) => {
-          console.error("There was an error deleting the donor!", error);
-        });
-    }
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure you want to delete this donor?")) {
+  //     axios
+  //       .delete(`/donor/delete/${id}`)
+  //       .then((response) => {
+  //         console.log(response.data.message);
+  //         // Filter out the deleted donor from the donors array
+  //         const updatedDonors = users.filter((donor) => donor._id !== id);
+  //         // Update the donors state with the updated list
+  //         setUsers(updatedDonors);
+  //       })
+  //       .catch((error) => {
+  //         console.error("There was an error deleting the donor!", error);
+  //       });
+  //   }
+  // };
+  const isEligibleToDonate = (lastDonationDate) => {
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    return new Date(lastDonationDate) <= twoMonthsAgo;
   };
   return (
     <div>
@@ -67,7 +82,7 @@ const Donor = () => {
           <div className="card">
             <div className="card-body">
               <div className="d-flex justify-content-between  ">
-                <h5 class="mb-4 px-2">All Users List</h5>
+                <h5 class="mb-4 px-2">All Donor List</h5>
                 {/* pagination */}
                 {/* Pagination starts */}
                 <nav aria-label="Page navigation">
@@ -122,7 +137,9 @@ const Donor = () => {
                       <th scope="col">Email</th>
                       <th scope="col">Phone</th>
                       <th scope="col">BloodType</th>
-                      <th scope="col"> Action</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Donate or Not</th>
+                      {/* <th scope="col"> Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -134,71 +151,65 @@ const Donor = () => {
                         <td>{user.contactNumber}</td>
                         <td>{user.bloodType}</td>
                         <td>
-                          {userStatus.role === "admin" && (
-                            <>
-                              <button
-                                type="button"
-                                className="btn btn-primary btn-sm mx-2"
-                                onClick={() =>
-                                  navigate(`/edit-donor/${user._id}`)
-                                }
-                              >
-                                Edit
-                              </button>
-                              {/* EditCampSchedule */}
-                              {/* <button
-                                type="button"
-                                className="btn btn-danger btn-sm"
-                                onClick={() => {
-                                  if (
-                                    window.confirm(
-                                      "Are you sure you want to delete this donor?"
-                                    )
-                                  ) {
-                                    axios
-                                      .delete(`donor/delete/${user._id}`)
-                                      .then((response) => {
-                                        console.log(response.data.message);
-                                        navigate("/all_donor"); // Navigate back to the list of donors
-                                      })
-                                      .catch((error) => {
-                                        console.error(
-                                          "There was an error deleting the donor!",
-                                          error
-                                        );
-                                      });
-                                  }
-                                }}
-                              >
-                                Delete
-                              </button> */}
-                              <button
-                                type="button"
-                                className="btn btn-danger btn-sm"
-                                onClick={() => handleDelete(user._id)}
-                              >
-                                Delete
-                              </button>
-                            </>
-                          )}
-                          {userStatus.role === "support team" && (
-                            <>
-                              <button
-                                type="button"
-                                className="btn btn-primary btn-sm mx-2"
-                                onClick={() =>
-                                  navigate(`/edit-donor/${user._id}`)
-                                }
-                              >
-                                Edit
-                              </button>
-                            </>
-                          )}
+                          {user.last_donation_date
+                            ? new Date(user.last_donation_date).toLocaleString()
+                            : "No Appointment"}
                         </td>
+                        <td
+                          style={{
+                            backgroundColor: isEligibleToDonate(
+                              user.last_donation_date
+                            )
+                              ? "green"
+                              : "red",
+                          }}
+                          className="text-white"
+                        >
+                          {isEligibleToDonate(user.last_donation_date)
+                            ? "Eligible to donate"
+                            : "Not eligible yet"}
+                        </td>
+                        {/* <td>
+                            {userStatus.role === "admin" && (
+                              <>
+                                <button
+                                  type="button"
+                                  className="btn btn-primary btn-sm mx-2"
+                                  onClick={() =>
+                                    navigate(`/edit-donor/${user._id}`)
+                                  }
+                                >
+                                  Edit
+                                </button>
+
+                                <button
+                                  type="button"
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => handleDelete(user._id)}
+                                >
+                                  Delete
+                                </button>
+                              </>
+                            )}
+                            {userStatus.role === "support team" && (
+                              <>
+                                <button
+                                  type="button"
+                                  className="btn btn-primary btn-sm mx-2"
+                                  onClick={() =>
+                                    navigate(`/edit-donor/${user._id}`)
+                                  }
+                                >
+                                  Edit
+                                </button>
+                              </>
+                            )}
+                          </td> */}
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                <ToastContainer />
               </div>
             </div>
           </div>

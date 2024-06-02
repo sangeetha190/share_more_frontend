@@ -36,6 +36,9 @@ import SearchCamp from "./Pages/User/CampScheduleData_list/SearchCamp";
 import RazorpayPayment from "./Pages/User/RazorpayPayment";
 import AllHistory from "./Pages/User/History/AllHistory";
 import PaymentHistory from "./Pages/Admin/PaymentHistory/PaymentHistory";
+import DonateOrNot from "./Pages/Admin/Appoinment/DonateOrNot";
+import BloodForwardMsgM from "./Pages/User/BloodRequestMessage/BloodForwardMsgM";
+import OTPVerify from "./Pages/User/Donor/Register/OTPVerify";
 
 const App = () => {
   return (
@@ -90,21 +93,22 @@ const App = () => {
               </>
             }
           />
+
+          <Route
+            path="/bloodforwardmsg"
+            element={
+              <>
+                <Header />
+                <BloodForwardMsgM />
+              </>
+            }
+          />
           <Route
             path="/donor/appointment"
             element={
               <>
                 <Header />
                 <DonorAppointment />
-              </>
-            }
-          />
-          <Route
-            path="/search_camp"
-            element={
-              <>
-                <Header />
-                <SearchCamp />
               </>
             }
           />
@@ -168,6 +172,15 @@ const App = () => {
           }
         />
         <Route
+          path="/search_camp"
+          element={
+            <>
+              <Header />
+              <SearchCamp />
+            </>
+          }
+        />
+        <Route
           path="/page_under_maintance"
           element={
             <>
@@ -194,6 +207,15 @@ const App = () => {
             </>
           }
         />
+        <Route
+          path="/verify-otp"
+          element={
+            <>
+              <Header />
+              <OTPVerify />
+            </>
+          }
+        />
         {/* Admin Side */}
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -206,6 +228,7 @@ const App = () => {
           {/* <Route path="/edit_donor" element={<EditDonor />} /> */}
           <Route path="/edit-donor/:id" element={<EditDonor />} />
           <Route path="/appoinment_List" element={<AppoinmentList />} />
+          <Route path="/unique_id" element={<DonateOrNot />} />
 
           {/* Camp Schedule */}
           <Route
