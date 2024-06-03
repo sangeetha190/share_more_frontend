@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
 import lookingForImg from "../../../assets/images/banner_image/looking_for.png";
 import mailImg from "../../../assets/images/banner_image/mail.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Footer from "../../../components/Footer/Footer";
 const LookingForBlood = () => {
   const validationSchema = Yup.object().shape({
@@ -483,7 +483,7 @@ const LookingForBlood = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
