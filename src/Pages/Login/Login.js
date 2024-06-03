@@ -64,7 +64,7 @@ const Login = () => {
 
       dispatch(handleLogin(user_response.data.token));
 
-      const userRole = user_response.data.role;
+      // const userRole = user_response.data.role;
       // Redirect based on user role
       navigate("/");
     } catch (error) {
