@@ -7,22 +7,24 @@ import "../../assets/css/app.css";
 // import Header from "../../components/Header/Header";
 
 const Login = () => {
-  const user_stauts = useSelector(getUser);
-  // const [users, setUsers] = useState([]);
+  const user_status = useSelector(getUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false); // State variable to track loading state
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     let token = localStorage.getItem("token");
-    if (token && !user_stauts) {
+    if (token && !user_status) {
       dispatch(handleLogin(token));
     }
   });
+
   const validateFields = () => {
     let isValid = true;
 
@@ -51,6 +53,8 @@ const Login = () => {
       return;
     }
 
+    setLoading(true); // Set loading state to true when login button is clicked
+
     try {
       const user_response = await axios.post(`/user/login`, {
         email,
@@ -59,29 +63,27 @@ const Login = () => {
       localStorage.setItem("token", user_response.data.token);
 
       dispatch(handleLogin(user_response.data.token));
-      console.log("user_response.data.token", user_response.data.token);
+
       const userRole = user_response.data.role;
-      console.log("user_role:", userRole);
-      console.log("user_response.data:", user_response.data);
       // Redirect based on user role
-      // if (user_stauts.role === "admin" || user_stauts.role === "support team") {
-      //   navigate("/dashboard");
-      // } else {
       navigate("/");
-      // }
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setErrorMessage("Invalid email or password. Please try again.");
       } else {
         setErrorMessage("An error occurred. Please try again later.");
       }
+    } finally {
+      setLoading(false); // Set loading state to false when response is received
     }
   };
-  const [showPassword, setShowPassword] = useState(false); // State variable to track password visibility
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
   return (
     <>
       <div className="container">
@@ -124,7 +126,6 @@ const Login = () => {
                         id="email"
                         placeholder="name@example.com"
                       />
-                      {/* Validate fields onBlur */}
                       {emailError && (
                         <p className="text-danger">{emailError}</p>
                       )}
@@ -143,18 +144,16 @@ const Login = () => {
                           id="password"
                           placeholder="Password"
                         />
-                        {/* Validate fields onBlur */}
 
                         <div
                           className="input-group-text bg-transparent"
-                          onClick={togglePasswordVisibility} // Toggle password visibility when the eye icon is clicked
+                          onClick={togglePasswordVisibility}
                         >
                           <i
                             className={`fa-solid ${
                               showPassword ? "fa-eye-slash" : "fa-eye"
                             }`}
-                          ></i>{" "}
-                          {/* Toggle eye icon based on showPassword state */}
+                          ></i>
                         </div>
                       </div>
                       {passwordError && (
@@ -163,11 +162,12 @@ const Login = () => {
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                       <button className="btn btn-primary px-5" type="submit">
-                        Login
+                        {loading ? "Loading..." : "Login"}{" "}
+                        {/* Display loading text if loading state is true */}
                       </button>
                       <div>
                         <Link
-                          to={!user_stauts && "/register"}
+                          to={!user_status && "/register"}
                           className="signup_btn_text"
                         >
                           Create an account

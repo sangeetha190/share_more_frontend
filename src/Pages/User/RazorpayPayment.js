@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../components/Notify/Notify";
 import axios from "../../axios";
+import Footer from "../../components/Footer/Footer";
 
 const RazorpayPayment = () => {
   const [selectedAmount, setSelectedAmount] = useState(100);
@@ -187,6 +188,7 @@ const RazorpayPayment = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

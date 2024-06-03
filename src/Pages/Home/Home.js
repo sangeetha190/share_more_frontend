@@ -184,6 +184,244 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <section className="fun-facts-area pt-100 pb-70">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-3 col-sm-6">
+                <div className="single-fun-fact">
+                  <div className="icon">
+                    <i className="fa fa-users" />
+                  </div>
+                  <h3>
+                    <span
+                      className="odometer odometer-auto-theme"
+                      data-count={1020}
+                    >
+                      <div className="odometer-inside">
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">50</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">0+</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        {/* <span className="odometer-formatting-mark">,</span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">0</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">2</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">0</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                      </div>
+                    </span>
+                  </h3>
+                  <p>Blood Donors</p>
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6">
+                <div className="single-fun-fact">
+                  <div className="icon">
+                    <i className="fa fa-heart" />
+                  </div>
+                  <h3>
+                    <span
+                      className="odometer odometer-auto-theme"
+                      data-count={5679}
+                    >
+                      <div className="odometer-inside">
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          {/* <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">5</span>
+                              </span>
+                            </span>
+                          </span> */}
+                        </span>
+                        {/* <span className="odometer-formatting-mark">,</span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">6</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          {/* <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">7</span>
+                              </span>
+                            </span>
+                          </span> */}
+                        </span>
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          {/* <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">9</span>
+                              </span>
+                            </span>
+                          </span> */}
+                        </span>
+                      </div>
+                    </span>
+                  </h3>
+                  <p>Donated Food</p>
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6">
+                <div className="single-fun-fact">
+                  <div className="icon">
+                    <i className="fa fa-star" />
+                  </div>
+                  <h3>
+                    <span
+                      className="odometer odometer-auto-theme"
+                      data-count={2660}
+                    >
+                      <div className="odometer-inside">
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">1</span>
+                          {/* <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">2</span>
+                              </span>
+                            </span>
+                          </span> */}
+                        </span>
+                        {/* <span className="odometer-formatting-mark">,</span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">6</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">6</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">00</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">0+</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </span>
+                  </h3>
+                  <p>Charity</p>
+                </div>
+              </div>
+              <div className="col-lg-3 col-sm-6">
+                <div className="single-fun-fact">
+                  <div className="icon">
+                    <i className="fa fa-download" />
+                  </div>
+                  <h3>
+                    <span
+                      className="odometer odometer-auto-theme"
+                      data-count={6789}
+                    >
+                      <div className="odometer-inside">
+                        <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">3</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">00+</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        {/* <span className="odometer-formatting-mark">,</span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">7</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">8</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                        {/* <span className="odometer-digit">
+                          <span className="odometer-digit-spacer">8</span>
+                          <span className="odometer-digit-inner">
+                            <span className="odometer-ribbon">
+                              <span className="odometer-ribbon-inner">
+                                <span className="odometer-value">9</span>
+                              </span>
+                            </span>
+                          </span>
+                        </span> */}
+                      </div>
+                    </span>
+                  </h3>
+                  <p>Donation</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section id="about" className="about-area pb-100 pt-70 pb-30">
           <div className="container">
             <div className="section-title">

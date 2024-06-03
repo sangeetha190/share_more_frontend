@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../../components/Notify/Notify";
 import campImg from "../../../../assets/images/banner_image/camp_banner.png";
+import Footer from "../../../../components/Footer/Footer";
 const DonorAppointment = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -208,10 +209,18 @@ const DonorAppointment = () => {
 
   return (
     <>
-      <div className="mt-4" style={{ height: "400px" }}>
+      {/* <div className="mt-4" style={{ height: "400px" }}>
         <img src={campImg} alt="blood_camp_image" className="w-100 h-100" />
+      </div> */}
+      <div className="mt-4">
+        <img
+          src={campImg}
+          alt="blood_camp_image"
+          className="w-100 h-100"
+          style={{ objectFit: "contain", marginTop: "25px" }}
+        />
       </div>
-      <div className="mt-5 pt-5 container">
+      <div className="mt-5 mb-5 container">
         <div className="card pt-4">
           <div className="card-body">
             <h4>Appointment Booking</h4>
@@ -526,6 +535,7 @@ const DonorAppointment = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
