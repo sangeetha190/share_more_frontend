@@ -8,6 +8,7 @@ import Notify from "../../../components/Notify/Notify";
 import HelpOthersImg from "../../../assets/images/banner_image/help_others.png";
 import tickImg from "../../../assets/images/banner_image/tick.png";
 import warningImg from "../../../assets/images/banner_image/warning.png";
+import Footer from "../../../components/Footer/Footer";
 const BloodRequestMessage = () => {
   // const [showPopup, setShowPopup] = useState(false); // Popup visibility state
   const [showThankYou, setShowThankYou] = useState(false); // Thank you message visibility state
@@ -105,88 +106,93 @@ const BloodRequestMessage = () => {
   };
   // hank you for submitting the forward message. Your contribution may help save a life! We'll notify you once the message is processed. Stay tuned and thank you for your support!
   return (
-    <div className="mt-5 pt-5 container">
-      <div className="card mt-4">
-        <div className="card-body">
-          <div className="row">
-            <div className="col-md-5">
-              <img
-                src={HelpOthersImg}
-                alt="blood_camp_image"
-                className="w-100"
-              />
-            </div>
-            <div className="col-md-7">
-              <h3 className="display-7">
-                Paste the Blood Related Forward Message Here
-              </h3>
-              <Formik
-                initialValues={{
-                  forward_message: "",
-                }}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({ isSubmitting, touched, errors, resetForm }) => (
-                  <Form>
-                    <div className="mb-3 pe-4">
-                      <label htmlFor="forward_message" className="form-label">
-                        Paste Forward Message
-                      </label>
-                      <Field
-                        as="textarea"
-                        name="forward_message"
-                        className={`form-control ${
-                          touched.forward_message && errors.forward_message
-                            ? "is-invalid"
-                            : touched.forward_message
-                            ? "is-valid"
-                            : ""
-                        }`}
-                        style={{ height: "150px" }}
-                      />
-                      <ErrorMessage
-                        name="forward_message"
-                        component="div"
-                        className="text-danger"
-                      />
-                    </div>
+    <>
+      <div className="mt-5 pt-5 container">
+        <div className="card mt-4">
+          <div className="card-body">
+            <div className="row">
+              <div className="col-md-5">
+                <img
+                  src={HelpOthersImg}
+                  alt="blood_camp_image"
+                  className="w-100"
+                />
+              </div>
+              <div className="col-md-7">
+                <h3 className="display-7">
+                  Paste the Blood Related Forward Message Here
+                </h3>
+                <Formik
+                  initialValues={{
+                    forward_message: "",
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {({ isSubmitting, touched, errors, resetForm }) => (
+                    <Form>
+                      <div className="mb-3 pe-4">
+                        <label htmlFor="forward_message" className="form-label">
+                          Paste Forward Message
+                        </label>
+                        <Field
+                          as="textarea"
+                          name="forward_message"
+                          className={`form-control ${
+                            touched.forward_message && errors.forward_message
+                              ? "is-invalid"
+                              : touched.forward_message
+                              ? "is-valid"
+                              : ""
+                          }`}
+                          style={{ height: "150px" }}
+                        />
+                        <ErrorMessage
+                          name="forward_message"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
 
-                    <button
-                      type="submit"
-                      className="btn btn-primary mt-3"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? "Submitting..." : "Submit"}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
-                      onClick={() => {
-                        resetForm();
-                      }}
-                    >
-                      Clear
-                    </button>
-                  </Form>
-                )}
-              </Formik>
-              <ToastContainer />
+                      <button
+                        type="submit"
+                        className="btn btn-primary mt-3"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Submitting..." : "Submit"}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary mt-2 me-2 mx-2  mt-3"
+                        onClick={() => {
+                          resetForm();
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </Form>
+                  )}
+                </Formik>
+                <ToastContainer />
+              </div>
             </div>
+            {showThankYou && (
+              <div className="alert alert-success mt-4" role="alert">
+                <h4 className="mb-0">
+                  {" "}
+                  Thank you for submitting the forward message.
+                </h4>
+                <h5 className="mt-2">
+                  Your contribution may help save a life!{" "}
+                </h5>
+                <h6> Stay tuned and thank you for your support!</h6>
+              </div>
+            )}
           </div>
-          {showThankYou && (
-            <div className="alert alert-success mt-4" role="alert">
-              <h4 className="mb-0">
-                {" "}
-                Thank you for submitting the forward message.
-              </h4>
-              <h5 className="mt-2">Your contribution may help save a life! </h5>
-              <h6> Stay tuned and thank you for your support!</h6>
-            </div>
-          )}
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

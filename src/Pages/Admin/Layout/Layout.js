@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getUser, handleLogin, logout } from "../../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+
 const Layout = () => {
   const user_stauts = useSelector(getUser);
   const navigate = useNavigate();
-  // if token is not in the localstorage or user value is not in the redux then call the midleware
   const dispatch = useDispatch();
-
   const [openSubMenu, setOpenSubMenu] = useState(null);
 
   const toggleSubMenu = (menuName) => {
@@ -15,34 +14,23 @@ const Layout = () => {
       prevSubMenu === menuName ? null : menuName
     );
   };
+
   useEffect(() => {
     let token = localStorage.getItem("token");
     if (token && !user_stauts) {
       dispatch(handleLogin(token));
     }
-  });
-  //   const login = () => {
-  //     if (user_stauts) {
-  //       dispatch(logout());
-  //     } else {
-  //       navigate("/login");
-  //     }
-  //   };
+  }, [dispatch, user_stauts]);
+
   const handleLogout = () => {
-    // Clear user authentication token from local storage
     localStorage.removeItem("token");
-
-    // Dispatch the logout action to update the Redux state
     dispatch(logout());
-
-    // Navigate to the login page
     navigate("/admin/login");
   };
+
   return (
     <div>
-      {/* <!--wrapper--> */}
       <div className="wrapper">
-        {/* <!--sidebar wrapper --> */}
         <div className="sidebar-wrapper" data-simplebar="true">
           <div className="sidebar-header">
             <div>
@@ -59,141 +47,242 @@ const Layout = () => {
               <i className="bx bx-menu"></i>
             </div>
           </div>
-          {/* <!--navigation--> */}
           <ul className="metismenu" id="menu">
             <li>
-              <Link to="/dashboard">
-                <div className="parent-icon">
-                  <i className="bx bx-home-alt"></i>
-                </div>
-                <div className="menu-title">Dashboard</div>
-              </Link>
-            </li>
-            {/* <li>
-              <Link to="/">
-                <div className="parent-icon">
-                  <i className="bx bx-home-alt"></i>
-                </div>
-                <div className="menu-title">Go to Website</div>
-              </Link>
-            </li> */}
-
-            {/* test starts */}
-            {/* test starts */}
-            <li>
-              <Link to="/dashboard">
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
                 <div className="parent-icon">
                   <i className="bx bx-home-alt"></i>
                 </div>
                 <div className="menu-title">
-                  <b>User Management</b>
+                  <i className="fa-solid fa-gauge"></i> <b>Dashboard</b>
                 </div>
-              </Link>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <i class="fa-solid fa-globe"></i> <b>Go to Website</b>
+                </div>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="#"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
+                <div className="parent-icon">
+                  {/* <i className="fa-solid fa-users"></i> */}
+                </div>
+                <div className="menu-title">
+                  <i className="fa-solid fa-users"></i> <b>User Management</b>
+                </div>
+              </NavLink>
             </li>
             <li>
               <ul className="mt-0 pt-0">
                 {user_stauts && user_stauts.role === "admin" && (
                   <>
                     <li>
-                      <Link to="/support_team" className="logo">
+                      <NavLink
+                        to="/support_team"
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
                         <i className="bx bx-radio-circle"></i>Create Support
                         Team
-                      </Link>
+                      </NavLink>
                     </li>
                     <li>
-                      <Link to="/create_user" className="logo">
+                      <NavLink
+                        to="/create_user"
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
                         <i className="bx bx-radio-circle"></i>Create User
-                      </Link>
+                      </NavLink>
                     </li>
                   </>
                 )}
                 <li>
-                  <Link to="/all_users" className="logo">
+                  <NavLink
+                    to="/all_users"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <i className="bx bx-radio-circle"></i>All Users
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
-
-            {/* Donor */}
             <li>
-              <Link>
+              <NavLink
+                to="#"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
                 <div className="parent-icon">
                   <i className="bx bx-home-alt"></i>
                 </div>
                 <div className="menu-title">
+                  <i className="fa-solid fa-droplet"></i>{" "}
                   <b>Donor Management</b>
                 </div>
-              </Link>
+              </NavLink>
             </li>
             <li>
               <ul className="mt-0 pt-0">
                 {user_stauts && user_stauts.role === "admin" && (
                   <>
                     <li>
-                      <Link to="/create_donor" className="logo">
+                      <NavLink
+                        to="/create_donor"
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
                         <i className="bx bx-radio-circle"></i>Create Donor
-                      </Link>
+                      </NavLink>
                     </li>
-                    {/* <li>
-                      <Link to="/edit_donor" className="logo">
-                        <i className="bx bx-radio-circle"></i>Edit Donor
-                      </Link>
-                    </li> */}
                   </>
                 )}
                 <li>
-                  <Link to="/all_donor" className="logo">
+                  <NavLink
+                    to="/all_donor"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <i className="bx bx-radio-circle"></i>All Donors
-                  </Link>
+                  </NavLink>
                 </li>
-                {/* Appointment */}
                 <li>
-                  <Link to="/appoinment_List" className="logo">
+                  <NavLink
+                    to="/appoinment_List"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <i className="bx bx-radio-circle"></i>Appointment List
-                  </Link>
+                  </NavLink>
                 </li>
-                {/* unique_id */}
                 <li>
-                  <Link to="/unique_id" className="logo">
+                  <NavLink
+                    to="/unique_id"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <i className="bx bx-radio-circle"></i>Unique Id
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
 
-            {/* Camp Schedule  */}
             <li>
-              <Link>
+              <NavLink
+                to="#"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
                 <div className="parent-icon">
                   <i className="bx bx-home-alt"></i>
                 </div>
                 <div className="menu-title">
+                  <i class="fa-solid fa-bowl-rice"></i> <b>Food Management</b>
+                </div>
+              </NavLink>
+            </li>
+            <li>
+              <ul className="mt-0 pt-0">
+                <li>
+                  <NavLink
+                    to="/food_appoinment_list"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    <i className="bx bx-radio-circle"></i>Appointment List
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/food_unique_id"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    <i className="bx bx-radio-circle"></i>Unique Id
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
+
+            {/* clothes */}
+
+            <li>
+              <NavLink
+                to="#"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <i class="fa-solid fa-shirt"></i> <b>Clothes Management</b>
+                </div>
+              </NavLink>
+            </li>
+            <li>
+              <ul className="mt-0 pt-0">
+                <li>
+                  <NavLink
+                    to="/clothe_appoinment_list"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    <i className="bx bx-radio-circle"></i>Appointment List
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/clothe_unique_id"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    <i className="bx bx-radio-circle"></i>Unique Id
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <NavLink
+                to="#"
+                className={({ isActive }) => (isActive ? "" : "")}
+              >
+                <div className="parent-icon">
+                  <i className="bx bx-home-alt"></i>
+                </div>
+                <div className="menu-title">
+                  <i className="fa-solid fa-map-location-dot"></i>{" "}
                   <b>Camp Schedule </b>
                 </div>
-              </Link>
+              </NavLink>
             </li>
             <li>
               <ul className="mt-0 pt-0">
                 {user_stauts && user_stauts.role === "admin" && (
                   <>
                     <li>
-                      <Link to="/camp_schedule_create" className="logo">
+                      <NavLink
+                        to="/camp_schedule_create"
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
                         <i className="bx bx-radio-circle"></i>Create Camp
                         Schedule
-                      </Link>
+                      </NavLink>
                     </li>
                   </>
                 )}
                 <li>
-                  <Link to="/camp_schedule_list" className="logo">
+                  <NavLink
+                    to="/camp_schedule_list"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <i className="bx bx-radio-circle"></i>All Camp_Schedule List
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
-
-            {/* test */}
             <li>
               <div
                 onClick={() => toggleSubMenu("org")}
@@ -204,7 +293,7 @@ const Layout = () => {
                   <i className="bx bx-home-alt"></i>
                 </div>
                 <div className="menu-title px-2">
-                  <b>Org Management</b>
+                  <i className="fa-solid fa-hospital"></i> <b>Organization</b>
                   {openSubMenu === "org" ? (
                     <i
                       className="fa-solid fa-chevron-up"
@@ -219,74 +308,49 @@ const Layout = () => {
                 </div>
               </div>
             </li>
-
             {openSubMenu === "org" && (
               <ul className="mt-0 pt-0">
                 {user_stauts && user_stauts.role === "admin" && (
                   <>
                     <li>
-                      <Link to="/create_org" className="logo">
+                      <NavLink
+                        to="/create_org"
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
                         <i className="bx bx-radio-circle"></i>Create
                         Organization
-                      </Link>
+                      </NavLink>
                     </li>
                   </>
                 )}
                 <li>
-                  <Link to="/org_list" className="logo">
+                  <NavLink
+                    to="/org_list"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     <i className="bx bx-radio-circle"></i>All Organization List
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             )}
-            {/* Oranganization Mang  */}
-            {/* <li>
-              <Link>
-                <div className="parent-icon">
-                  <i className="bx bx-home-alt"></i>
-                </div>
-                <div className="menu-title">
-                  <b>Org Management </b>
-                </div>
-              </Link>
-            </li>
-
-            <li>
-              <ul className="mt-0 pt-0">
-                {user_stauts && user_stauts.role === "admin" && (
-                  <>
-                    <li>
-                      <Link to="/create_org" className="logo">
-                        <i className="bx bx-radio-circle"></i>Create
-                        Oranganization
-                      </Link>
-                    </li>
-                  </>
-                )}
-                <li>
-                  <Link to="/org_list" className="logo">
-                    <i className="bx bx-radio-circle"></i>All Oranganization
-                    List
-                  </Link>
-                </li>
-              </ul>
-            </li> */}
-            {/* Payment History */}
-            <li>
-              <Link to="/payment_history">
-                <div className="parent-icon">
-                  <i className="bx bx-home-alt"></i>
-                </div>
-                <div className="menu-title">
-                  <b>Donation History </b>
-                </div>
-              </Link>
-            </li>
+            {user_stauts && user_stauts.role === "admin" && (
+              <li>
+                <NavLink
+                  to="/payment_history"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  <div className="parent-icon">
+                    <i className="bx bx-home-alt"></i>
+                  </div>
+                  <div className="menu-title">
+                    <i className="fa-solid fa-hand-holding-dollar"></i>{" "}
+                    <b>Donation History </b>
+                  </div>
+                </NavLink>
+              </li>
+            )}
           </ul>
-          {/* <!--end navigation--> */}
         </div>
-        {/* <!--end sidebar wrapper -->
-      <!--start header --> */}
         <header>
           <div className="topbar d-flex align-items-center">
             <nav className="navbar navbar-expand gap-3">
@@ -302,21 +366,12 @@ const Layout = () => {
                   >
                     <i className="bx bx-search"></i>
                   </li>
-                  {user_stauts && (
-                    <li>
-                      <span>
-                        Welcome, {user_stauts.name} <br />
-                        {user_stauts.role}
-                      </span>
-                    </li>
-                  )}
                 </ul>
               </div>
               <div className="user-box dropdown px-3">
                 <p className="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret">
-                  <i class="fa-solid fa-circle-user fs-2 mt-3"></i>
+                  <i className="fa-solid fa-circle-user fs-2 mt-3"></i>
                 </p>
-
                 <button className="btn " onClick={handleLogout}>
                   Logout
                 </button>

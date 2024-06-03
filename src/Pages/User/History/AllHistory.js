@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./history.css";
 import axios from "../../../axios";
+import Footer from "../../../components/Footer/Footer";
 const AllHistory = () => {
   const [clothesHistory, setclothesHistory] = useState([]);
   const [DonorHistory, setDonorHistory] = useState([]);
@@ -476,6 +477,7 @@ const AllHistory = () => {
           </div>
         </div>
         {/* test 2 */}
+        <Footer />
       </>
     </div>
   );

@@ -39,6 +39,10 @@ import PaymentHistory from "./Pages/Admin/PaymentHistory/PaymentHistory";
 import DonateOrNot from "./Pages/Admin/Appoinment/DonateOrNot";
 import BloodForwardMsgM from "./Pages/User/BloodRequestMessage/BloodForwardMsgM";
 import OTPVerify from "./Pages/User/Donor/Register/OTPVerify";
+import FoodAppoinment from "./Pages/Admin/Food/FoodAppoinment";
+import ClotheAppoinment from "./Pages/Admin/Clothes/ClotheAppoinment";
+import FoodUniqueID from "./Pages/Admin/Food/FoodUniqueID";
+import ClothesUnique from "./Pages/Admin/Clothes/ClothesUnique";
 
 const App = () => {
   return (
@@ -229,7 +233,13 @@ const App = () => {
           <Route path="/edit-donor/:id" element={<EditDonor />} />
           <Route path="/appoinment_List" element={<AppoinmentList />} />
           <Route path="/unique_id" element={<DonateOrNot />} />
-
+          <Route path="/food_appoinment_list" element={<FoodAppoinment />} />
+          <Route path="/food_unique_id" element={<FoodUniqueID />} />
+          <Route
+            path="/clothe_appoinment_list"
+            element={<ClotheAppoinment />}
+          />
+          <Route path="/clothe_unique_id" element={<ClothesUnique />} />
           {/* Camp Schedule */}
           <Route
             path="/camp_schedule_create"
