@@ -769,16 +769,20 @@ h6 {
   position: relative;
   margin-bottom: 30px;
   background-color: #f3f3f3;
+  background-color: #ffffff;
   border: 1px solid #f3f3f3;
   padding: 30px 40px;
   z-index: 1;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  box-shadow: 0px 5px 21px -5px #cdd1e1;
+  border-radius: 19px;
 }
 
 .single-fun-fact .icon i {
   font-size: 50px;
-  color: #1da074;
+  /* color: #1da074; */
+  color: #056526;
   line-height: 1;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -814,10 +818,11 @@ h6 {
   border-radius: 0;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  border-radius: 19px;
 }
 
 .single-fun-fact:hover {
-  border: 1px solid #2f5bea;
+  border: 1px solid #ffffff;
 }
 
 .single-fun-fact:hover::before {
@@ -3292,4 +3297,41 @@ blockquote::after,
   .main-banner {
     height: 936px;
   }
+}
+.dashed_border {
+  border: 1px dashed black;
+}
+.card.p-4.dashed_border {
+  /* height: 310px; */
+  background-color: #eaeaea;
+  transform: scale(0.9);
+  transition: 0.5s;
+}
+.card.p-4.dashed_border:hover {
+  transform: scale(1);
+}
+.banner_height {
+  /* padding-top: 30px; */
+  height: 220px;
+  background-color: #717171;
+  color: #fff;
+  text-align: center;
+}
+.fw-6 {
+  font-weight: 600;
+}
+.fw-7 {
+  font-weight: 700;
+}
+.title_food_color {
+  color: #c86a41;
+}
+.fs-p {
+  font-family: "Poppins", sans-serif;
+}
+.tx-justify {
+  text-align: justify;
+}
+.box-shadow_box {
+  box-shadow: 0px 5px 21px -5px #cdd1e1;
 }

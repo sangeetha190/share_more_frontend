@@ -5,9 +5,11 @@ import axios from "../../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Notify from "../../../components/Notify/Notify";
-import clothesImg from "../../../assets/images/banner_image/clothes_3.png";
+// import clothesImg from "../../../assets/images/banner_image/clothes_3.png";
 import clothes_iconImg from "../../../assets/images/banner_image/clothes_icon.png";
 import Footer from "../../../components/Footer/Footer";
+import foodBannerImg from "../../../assets/images/banner_image/clothes_banner02.png";
+import gift from "../../../assets/images/banner_image/gift.png";
 const ClothesDonation = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -210,14 +212,91 @@ const ClothesDonation = () => {
 
   return (
     <>
-      <div className="mt-5 pt-5 container">
+      <div className="pt-5 ">
+        <img
+          src={foodBannerImg}
+          alt="blood_camp_image"
+          className="w-100 h-100"
+          style={{ objectFit: "contain", marginTop: "25px" }}
+        />
+      </div>
+      {/* starts */}
+      <div className="container">
+        <div className="px-md-5 mx-md-5  text-center">
+          <div className=" my-4">
+            <h3 className="mt-4 title_food_color">
+              {" "}
+              How Can We Do This, Together?
+            </h3>
+
+            <p className="fs-6 mt-2">
+              Celebrations are always more special, it’s more special if you
+              celebrate your special moments along with needy. Register with us,
+              Let’s celebrate your special moments together.
+            </p>
+            <button className="btn btn-primary">
+              <i className="fa-solid fa-heart"></i> Donate Clothes
+            </button>
+          </div>
+        </div>
+
+        {/* explain starts */}
+        <section className="">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-4 col-sm-6">
+                <div className="card p-4 dashed_border">
+                  {/* <div className="icon">
+                    <i className="fa fa-users" />
+                  </div> */}
+                  <h5 className="mb-2">1. Register</h5>
+                  <p className="fs-6">
+                    Share your details such as contact information, location,
+                    address, and preferred date for clothing collection. A
+                    unique ID will be provided for your reference. We will
+                    arrange for the collection of clothes accordingly.
+                  </p>
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-6 ">
+                <div className="card p-4 dashed_border">
+                  <h5>2. Reward</h5>
+                  <p className="fs-6">
+                    For your generous clothing donation, you will receive a
+                    reward in the form of a plant. By donating clothes, you not
+                    only contribute to helping those in need but also contribute
+                    to the environment. Planting more trees through your
+                    donations helps create a greener and healthier planet for
+                    everyone.
+                  </p>
+                </div>
+              </div>
+              <div className="col-lg-4 col-sm-6 pe-2">
+                <div className="card p-4 dashed_border">
+                  <div className="icon"></div>
+                  <h5>3. Distributing to Needy</h5>
+                  <p className="fs-6">
+                    Our volunteers distribute your donated clothes directly to
+                    those who need them most. Your generosity brings warmth and
+                    comfort to those in our community facing hardship.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* explain Ends */}
+      </div>
+      {/* Ends */}
+
+      <div className="mt-5  pt-4 container">
         <div className="card pt-4">
           <div className="card-body">
             <div className="row">
-              <div className="col-md-5">
+              {/* <div className="col-md-5">
                 <img src={clothesImg} alt="ttest" className="w-100" />
-              </div>
-              <div className="col-md-7">
+              </div> */}
+              <div className="col-md-12">
                 <h4>Share More Things</h4>
                 <Formik
                   initialValues={initialValues}
@@ -238,7 +317,7 @@ const ClothesDonation = () => {
                   }) => (
                     <Form>
                       <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-md-3">
                           <label htmlFor="appointment" className="form-label">
                             Appointment Date:
                           </label>
@@ -260,7 +339,7 @@ const ClothesDonation = () => {
                             className="text-danger"
                           />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-3">
                           <div className="mb-3">
                             <label htmlFor="state" className="form-label">
                               State
@@ -297,9 +376,8 @@ const ClothesDonation = () => {
                             />
                           </div>
                         </div>
-                      </div>
-                      <div className="row ">
-                        <div className="col-md-6">
+
+                        <div className="col-md-3">
                           <div className="mb-3">
                             <label htmlFor="district" className="form-label">
                               District
@@ -331,7 +409,7 @@ const ClothesDonation = () => {
                             />
                           </div>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-3">
                           <div className="mb-3">
                             <label
                               htmlFor="contactNumber"
@@ -357,9 +435,8 @@ const ClothesDonation = () => {
                             />
                           </div>
                         </div>
-                      </div>
-                      <div className="row ">
-                        <div className="col-12">
+
+                        <div className="col-md-6">
                           <div className="mb-3">
                             <label htmlFor="address" className="form-label">
                               Address
@@ -418,11 +495,59 @@ const ClothesDonation = () => {
             {/* Notify container */}
             <ToastContainer />
             {showThankYou && (
-              <div className="alert alert-success mt-4" role="alert">
-                Thank you! We will contact you soon. <br />
-                The ID has been sent to your email. <br />
-                As a gift, you will receive a plant!
-              </div>
+              <>
+                {/* <div className="alert alert-success mt-4" role="alert">
+                  Thank you! We will contact you soon. <br />
+                  The ID has been sent to your email. <br />
+                  As a gift, you will receive a plant!
+                </div> */}
+                <div className="container mt-50px">
+                  <div className="types_of_blood mx-auto">
+                    <div className="row">
+                      <div className="col-md-5">
+                        {/* {/ <img src={gift} className="w-75" alt="gift" /> /} */}
+                        <img src={gift} className="w-75" alt="gift" />
+                      </div>
+                      <div className="col-md-7">
+                        <h1
+                          className="gift_title1"
+                          style={{ color: "green", fontSize: "50px" }}
+                        >
+                          Thank you!
+                        </h1>
+                        <h4 style={{ fontSize: "25px" }}>
+                          You Appoinment Has been booked.
+                        </h4>
+                        <p className="my-3" style={{ fontSize: "19px" }}>
+                          We will contact you soon.
+                        </p>
+                        <p className="mb-3" style={{ fontSize: "19px" }}>
+                          The ID has been sent to your email.
+                        </p>
+                        <p className="" style={{ fontSize: "19px" }}>
+                          As a gift, you will receive{" "}
+                          <span
+                            className="text-success"
+                            style={{ fontWeight: 800 }}
+                          >
+                            a plant!
+                          </span>
+                        </p>
+                        <div
+                          className="position-absolute"
+                          style={{ right: 0, bottom: "0px" }}
+                        >
+                          <img
+                            src="https://img.freepik.com/free-vector/plant-emoji_78370-262.jpg?size=338&ext=jpg&ga=GA1.1.2082370165.1716422400&semt=ais_user"
+                            style={{ width: "120px" }}
+                            alt="plant"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
             {/* test */}
           </div>
