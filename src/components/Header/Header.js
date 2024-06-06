@@ -87,10 +87,7 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="/page_under_maintance"
-                      className="dropdown-item"
-                    >
+                    <NavLink to="/types_of_blood" className="dropdown-item">
                       Types of Bloods
                     </NavLink>
                   </li>

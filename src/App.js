@@ -43,8 +43,18 @@ import FoodAppoinment from "./Pages/Admin/Food/FoodAppoinment";
 import ClotheAppoinment from "./Pages/Admin/Clothes/ClotheAppoinment";
 import FoodUniqueID from "./Pages/Admin/Food/FoodUniqueID";
 import ClothesUnique from "./Pages/Admin/Clothes/ClothesUnique";
-
+import { useSelector } from "react-redux";
+import { getUser } from "./slices/userSlice";
+import NotFound from "./components/NotFound";
+import Typesofblood from "./Pages/User/TypesofBlood/Typesofblood";
 const App = () => {
+  const user_stauts = useSelector(getUser);
+  const isAdmin = () => {
+    return (
+      user_stauts &&
+      (user_stauts.role === "admin" || user_stauts.role === "support team")
+    );
+  };
   return (
     <Router>
       <Routes>
@@ -194,6 +204,15 @@ const App = () => {
           }
         />
         <Route
+          path="/types_of_blood"
+          element={
+            <>
+              <Header />
+              <Typesofblood />
+            </>
+          }
+        />
+        <Route
           path="/razorpaymethod"
           element={
             <>
@@ -222,38 +241,50 @@ const App = () => {
         />
         {/* Admin Side */}
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/support_team" element={<TeamRegister />} />
-          <Route path="/create_user" element={<CreateUser />} />
-          <Route path="/all_users" element={<AllUsers />} />
-          <Route path="/all_donor" element={<BDonor />} />
-          <Route path="/create_donor" element={<CreateDonor />} />
-
-          {/* <Route path="/edit_donor" element={<EditDonor />} /> */}
-          <Route path="/edit-donor/:id" element={<EditDonor />} />
-          <Route path="/appoinment_List" element={<AppoinmentList />} />
-          <Route path="/unique_id" element={<DonateOrNot />} />
-          <Route path="/food_appoinment_list" element={<FoodAppoinment />} />
-          <Route path="/food_unique_id" element={<FoodUniqueID />} />
           <Route
-            path="/clothe_appoinment_list"
-            element={<ClotheAppoinment />}
+            path="/dashboard"
+            element={isAdmin() ? <Dashboard /> : <NotFound />}
           />
-          <Route path="/clothe_unique_id" element={<ClothesUnique />} />
-          {/* Camp Schedule */}
-          <Route
-            path="/camp_schedule_create"
-            element={<CampScheduleCreate />}
-          />
-          <Route path="/camp_schedule_list" element={<CampList />} />
-          <Route path="/camp_schedule/:id" element={<EditCampSchedule />} />
-
-          {/* or */}
-          <Route path="/org_list" element={<ListOrg />} />
-          <Route path="/create_org" element={<CreateOrg />} />
-          <Route path="/edit-org/:id" element={<EditOrg />} />
-
-          <Route path="/payment_history" element={<PaymentHistory />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          {isAdmin() ? (
+            <>
+              {" "}
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/support_team" element={<TeamRegister />} />
+              <Route path="/create_user" element={<CreateUser />} />
+              <Route path="/all_users" element={<AllUsers />} />
+              <Route path="/all_donor" element={<BDonor />} />
+              <Route path="/create_donor" element={<CreateDonor />} />
+              {/* <Route path="/edit_donor" element={<EditDonor />} /> */}
+              <Route path="/edit-donor/:id" element={<EditDonor />} />
+              <Route path="/appoinment_List" element={<AppoinmentList />} />
+              <Route path="/unique_id" element={<DonateOrNot />} />
+              <Route
+                path="/food_appoinment_list"
+                element={<FoodAppoinment />}
+              />
+              <Route path="/food_unique_id" element={<FoodUniqueID />} />
+              <Route
+                path="/clothe_appoinment_list"
+                element={<ClotheAppoinment />}
+              />
+              <Route path="/clothe_unique_id" element={<ClothesUnique />} />
+              {/* Camp Schedule */}
+              <Route
+                path="/camp_schedule_create"
+                element={<CampScheduleCreate />}
+              />
+              <Route path="/camp_schedule_list" element={<CampList />} />
+              <Route path="/camp_schedule/:id" element={<EditCampSchedule />} />
+              {/* or */}
+              <Route path="/org_list" element={<ListOrg />} />
+              <Route path="/create_org" element={<CreateOrg />} />
+              <Route path="/edit-org/:id" element={<EditOrg />} />
+              <Route path="/payment_history" element={<PaymentHistory />} />
+            </>
+          ) : (
+            <Route path="*" element={<NotFound />} />
+          )}
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>

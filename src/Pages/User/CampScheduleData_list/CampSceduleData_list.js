@@ -10,6 +10,9 @@ import Notify from "../../../components/Notify/Notify";
 import "./campScheduleData.css";
 import campImg from "../../../assets/images/banner_image/camp_banner.png";
 import Footer from "../../../components/Footer/Footer";
+import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 const PAGE_SIZE = 10; // Number of users per page
 
 const CampSceduleData_list = () => {
@@ -79,15 +82,64 @@ const CampSceduleData_list = () => {
         {/* <Layout /> */}
         {/* <div className="page-wrapper"> */}
         {/* <div className="page-content"> */}
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <img
             src={campImg}
             alt="blood_camp_image"
             className="w-100 h-100"
             style={{ objectFit: "contain", marginTop: "25px" }}
           />
+        </div> */}
+        {/* Starts */}
+        <div>
+          <Swiper
+            spaceBetween={20}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            //   pagination={{ clickable: true }}
+            //   navigation={true}
+            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => console.log(swiper)}
+            modules={[Autoplay, Pagination, Navigation]}
+          >
+            <SwiperSlide>
+              <img
+                src={campImg}
+                alt="blood_camp_image"
+                className="w-100 h-100"
+                style={{ objectFit: "contain", marginTop: "25px" }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={campImg}
+                alt="blood_camp_image"
+                className="w-100 h-100"
+                style={{ objectFit: "contain", marginTop: "25px" }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={campImg}
+                alt="blood_camp_image"
+                className="w-100 h-100"
+                style={{ objectFit: "contain", marginTop: "25px" }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={campImg}
+                alt="blood_camp_image"
+                className="w-100 h-100"
+                style={{ objectFit: "contain", marginTop: "25px" }}
+              />
+            </SwiperSlide>
+          </Swiper>
         </div>
-
+        {/* Ends */}
         <div className="mt-3 container">
           <div className="card">
             <div className="card-body">
@@ -203,6 +255,7 @@ const CampSceduleData_list = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );
