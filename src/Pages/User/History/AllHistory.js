@@ -264,7 +264,7 @@ const AllHistory = () => {
                                           {`${
                                             data.action === "collect"
                                               ? "We will collect"
-                                              : data.status === "visit"
+                                              : data.action === "visit"
                                               ? "Visit"
                                               : ""
                                           }`}

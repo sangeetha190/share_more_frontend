@@ -153,7 +153,7 @@ const Home = () => {
                       <img
                         src={bannerImg}
                         alt="image1"
-                        style={{ position: "relative", zIndex: -1 }}
+                        style={{ position: "relative" }}
                       />
                     </div>
                   </div>

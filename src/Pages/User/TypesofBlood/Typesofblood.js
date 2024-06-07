@@ -98,7 +98,7 @@ const Typesofblood = () => {
           {/* <h5 className="text-muted">Not all blood is alike.</h5> */}
         </div>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-12 col-12">
             <div className="" style={{ height: "auto" }}>
               <img
                 src={bloodTypes}
@@ -107,7 +107,7 @@ const Typesofblood = () => {
               />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 pt-md-0 pt-sm-3 pt-3">
             {" "}
             <p className="fs-6 tx-justify">
               Ensuring the correct match of blood types for transfusions is

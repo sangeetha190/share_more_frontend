@@ -212,21 +212,20 @@ const BloodForwardMsgM = () => {
                   )}
                 </Formik>
                 <ToastContainer />
-
-                {showThankYou && (
-                  <div className="alert alert-success mt-4" role="alert">
-                    <h4 className="mb-0">
-                      {" "}
-                      Thank you for submitting the forward message.
-                    </h4>
-                    <h5 className="mt-2">
-                      Your contribution may help save a life!{" "}
-                    </h5>
-                    <h6> Stay tuned and thank you for your support!</h6>
-                  </div>
-                )}
               </div>
             </div>
+            {showThankYou && (
+              <div className="alert alert-success mt-4" role="alert">
+                <h4 className="mb-0">
+                  {" "}
+                  Thank you for submitting the forward message.
+                </h4>
+                <h5 className="mt-2">
+                  Your contribution may help save a life!{" "}
+                </h5>
+                <h6> Stay tuned and thank you for your support!</h6>
+              </div>
+            )}
           </div>
         </div>
       </div>

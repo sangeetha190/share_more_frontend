@@ -239,11 +239,11 @@ const Header = () => {
                   </NavLink>
                 </li>
               )}
-              {user && user.role === "donor" && (
+              {/* {user && user.role === "donor" && (
                 <h3>
                   <div className="btn-group">Hai Donor</div>
                 </h3>
-              )}
+              )} */}
             </ul>
             <span className="navbar-text">
               <div className="header_btn_section d-flex">
