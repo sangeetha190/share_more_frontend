@@ -6,6 +6,9 @@ import axios from "../../../../axios";
 import { handleLogin } from "../../../../slices/userSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Notify from "../../../../components/Notify/Notify";
+import { ToastContainer, toast } from "react-toastify";
+import warning from "../../../../assets/images/banner_image/warning.png";
 const OTPVerify = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +31,9 @@ const OTPVerify = () => {
 
       navigate("/");
     } catch (error) {
+      // console.log(error.response.data.message);
+      setErrors(error.response.data.message);
+      toast(<Notify message={error.response.data.message} imgUrl={warning} />);
       if (error.response && error.response.status === 401) {
         if (error.response.data.msg === "User Not Registered") {
           // Display the specific error message in the UI
@@ -121,6 +127,7 @@ const OTPVerify = () => {
                       </Form>
                     )}
                   </Formik>
+                  <ToastContainer />
                 </div>
               </div>
             </div>
